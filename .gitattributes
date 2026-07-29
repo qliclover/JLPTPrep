@@ -1,0 +1,5 @@
+# 青空文庫原文是 Shift_JIS + CRLF，字节必须原样保留：
+# 编码嗅探和 CRLF 处理的测试就是靠这些真实字节验证的，
+# 一旦 Git 做行尾转换，测试验的就不再是真实世界的输入了。
+App/Resources/*.txt -text
+Core/Tests/JLPTContentTests/Fixtures/*.txt -text

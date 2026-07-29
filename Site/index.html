@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>日本語 · JLPT 备考</title>
+<meta name="description" content="为 JLPT 备考做的日语学习工具：间隔重复背单词、读日文原文、离线词典。">
+<style>
+  /* 沿用 App 的 Classical token：纸底、金色只作描边和细线、不用大圆角 */
+  :root {
+    --bg: #f3f2f2;
+    --text: #201f1d;
+    --accent: #b68235;
+    --accent-700: #7d5411;
+    --neutral-600: #7d7979;
+    --neutral-500: #9b9797;
+    --divider: rgba(32, 31, 29, .16);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1a18;
+      --text: #ece9e4;
+      --accent: #e1ad66;
+      --accent-700: #e1ad66;
+      --neutral-600: #a29d98;
+      --neutral-500: #8a8681;
+      --divider: rgba(236, 233, 228, .18);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 64px 24px 96px; }
+  header { padding-bottom: 24px; border-bottom: 1px solid var(--divider); }
+  h1 {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-weight: 600; font-size: 34px; margin: 0 0 6px; letter-spacing: .02em;
+  }
+  .kicker {
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--accent-700); margin: 0 0 10px;
+  }
+  h2 {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-weight: 600; font-size: 21px; margin: 48px 0 12px;
+  }
+  p, li { font-size: 15px; color: var(--text); }
+  .muted { color: var(--neutral-600); font-size: 14px; }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  a { color: var(--accent-700); text-decoration: none; border-bottom: 1px solid var(--divider); }
+  a:hover { border-bottom-color: var(--accent); }
+  .card { border: 1px solid var(--divider); border-radius: 4px; padding: 20px; margin: 20px 0; }
+  code { font-family: ui-monospace, SFMono-Regular, monospace; font-size: 13px; }
+  footer {
+    margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--divider);
+    font-size: 12px; color: var(--neutral-500);
+  }
+  .rule { width: 48px; height: 1px; background: var(--accent); margin: 32px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">JLPT 备考</p>
+  <h1>日本語</h1>
+  <p class="muted">背单词和读原文用同一套记忆系统 —— 读书时点开的生词，明天就出现在复习队列里。</p>
+</header>
+
+<h2>它能做什么</h2>
+<ul>
+  <li><strong>单词</strong> —— N5–N1 共 8,029 词，按等级分包。间隔重复调度，同一个词答对三次才算过。可以翻卡自评，也可以做选择题（干扰项按真题套路生成：清浊、长短、促音）。</li>
+  <li><strong>阅读</strong> —— 导入 .txt 或带文字层的 PDF，编码认得 UTF-8 / Shift_JIS / EUC-JP。横排竖排都支持。点任意一个词看读音、原形和活用变形；长按一句可以翻译。</li>
+  <li><strong>词典</strong> —— 内置 JMdict，218,173 词条，完全离线。中文释义覆盖 N5 和 N4 的核心词。</li>
+  <li><strong>笔记</strong> —— 划词或选句都能记，按书归档，点一条跳回原文那一段。</li>
+</ul>
+
+<p class="muted">随包 8 篇青空文庫的公版作品：芥川龍之介《羅生門》《蜘蛛の糸》《杜子春》、太宰治《走れメロス》、宮沢賢治《注文の多い料理店》《セロ弾きのゴーシュ》、新美南吉《ごん狐》《手袋を買いに》。</p>
+
+<div class="rule"></div>
+
+<h2>遇到问题</h2>
+<div class="card">
+  <p>发邮件到 <a href="mailto:liqian_19990306@yahoo.com">liqian_19990306@yahoo.com</a></p>
+  <p class="muted" style="margin-bottom:0">
+    说清楚是在哪一屏、做了什么操作、期望看到什么。如果是某个词的读音或释义有误，
+    请把那个词也写上。
+  </p>
+</div>
+
+<h2>已知的不足</h2>
+<p class="muted">这些是现在就知道的问题，不是承诺，只是让你心里有数：</p>
+<ul class="muted">
+  <li>N3 以上的词只有英文释义，中文只覆盖 N5 和 N4（日中的开源词典不存在，中文是手工写的）</li>
+  <li>JLPT 官方自 2010 年起不再公布词表，App 里的分级来自社区整理版本，与真题可能有出入</li>
+  <li>竖排里跨词的拉丁串会被拆开（<code>N4</code> 会显示成 <code>N</code> 和 <code>4</code>）</li>
+  <li>句子翻译需要 iOS 18，首次使用要在「设置 › 通用 › 翻译」里下载语言包</li>
+  <li>语法、听力、模拟考都还没做</li>
+</ul>
+
+<div class="rule"></div>
+
+<h2 id="privacy">隐私政策</h2>
+<div class="card">
+  <p><strong>本 App 不收集任何数据。</strong></p>
+  <p>没有账号系统，不发起任何网络请求，不含第三方分析、广告或跟踪 SDK。</p>
+  <p>你的全部内容 —— 学习进度、复习历史、导入的书籍、笔记、收藏 —— 都只存储在你自己的
+     设备本地。开发者无法访问，也没有服务器可以访问。</p>
+  <p class="muted">
+    句子翻译使用 Apple 的端上翻译框架，在你的设备上运行，翻译内容不会离开设备。
+  </p>
+  <p class="muted" style="margin-bottom:0">
+    删除 App 即删除全部数据。
+  </p>
+</div>
+
+<h2>内容来源与许可</h2>
+<ul class="muted">
+  <li><strong>JMdict / EDICT</strong> —— 词典数据，版权归 Electronic Dictionary Research and
+      Development Group（EDRDG）所有，按 <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> 使用。</li>
+  <li><strong>JLPT 分级词表</strong> —— 来自 <a href="https://github.com/jamsinclair/open-anki-jlpt-decks">open-anki-jlpt-decks</a>（MIT），社区整理版本。</li>
+  <li><strong>青空文庫</strong> —— 随包日文作品著作权已过保护期，取自 <a href="https://www.aozora.gr.jp">青空文庫</a>。</li>
+  <li><strong>Cormorant Garamond / Lora</strong> —— 字体，SIL Open Font License 1.1。</li>
+</ul>
+
+<footer>
+  © 2026 Qian Li · 本页同时作为 App 的支持页与隐私政策页
+</footer>
+
+</div>
+</body>
+</html>

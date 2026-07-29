@@ -1,0 +1,902 @@
+{
+  "schemaVersion": 2,
+  "packID": "vocab-n5-sample",
+  "level": "N5",
+  "vocab": [
+    {
+      "slug": "n5-gakkou",
+      "expression": "学校",
+      "reading": "がっこう",
+      "furigana": "{学校|がっこう}",
+      "meaningZh": "学校",
+      "partOfSpeech": "名词",
+      "tags": [
+        "场所"
+      ],
+      "examples": [
+        {
+          "ja": "私は毎日学校へ行きます。",
+          "furigana": "{私|わたし}は{毎日|まいにち}{学校|がっこう}へ{行|い}きます。",
+          "zh": "我每天去学校。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-sensei",
+      "expression": "先生",
+      "reading": "せんせい",
+      "furigana": "{先生|せんせい}",
+      "meaningZh": "老师；医生（对特定职业的敬称）",
+      "partOfSpeech": "名词",
+      "tags": [
+        "人物"
+      ],
+      "examples": [
+        {
+          "ja": "田中先生は日本語の先生です。",
+          "furigana": "{田中|たなか}{先生|せんせい}は{日本語|にほんご}の{先生|せんせい}です。",
+          "zh": "田中老师是日语老师。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-gakusei",
+      "expression": "学生",
+      "reading": "がくせい",
+      "furigana": "{学生|がくせい}",
+      "meaningZh": "学生（多指大学生）",
+      "partOfSpeech": "名词",
+      "tags": [
+        "人物"
+      ],
+      "examples": [
+        {
+          "ja": "兄は大学の学生です。",
+          "furigana": "{兄|あに}は{大学|だいがく}の{学生|がくせい}です。",
+          "zh": "我哥哥是大学生。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-tomodachi",
+      "expression": "友達",
+      "reading": "ともだち",
+      "furigana": "{友達|ともだち}",
+      "meaningZh": "朋友",
+      "partOfSpeech": "名词",
+      "tags": [
+        "人物"
+      ],
+      "examples": [
+        {
+          "ja": "友達と映画を見ました。",
+          "furigana": "{友達|ともだち}と{映画|えいが}を{見|み}ました。",
+          "zh": "和朋友看了电影。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kazoku",
+      "expression": "家族",
+      "reading": "かぞく",
+      "furigana": "{家族|かぞく}",
+      "meaningZh": "家人，家庭",
+      "partOfSpeech": "名词",
+      "tags": [
+        "人物"
+      ],
+      "examples": [
+        {
+          "ja": "家族は四人です。",
+          "furigana": "{家族|かぞく}は{四人|よにん}です。",
+          "zh": "我家有四口人。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-namae",
+      "expression": "名前",
+      "reading": "なまえ",
+      "furigana": "{名前|なまえ}",
+      "meaningZh": "名字，姓名",
+      "partOfSpeech": "名词",
+      "examples": [
+        {
+          "ja": "お名前は何ですか。",
+          "furigana": "お{名前|なまえ}は{何|なん}ですか。",
+          "zh": "您叫什么名字？"
+        }
+      ]
+    },
+    {
+      "slug": "n5-jikan",
+      "expression": "時間",
+      "reading": "じかん",
+      "furigana": "{時間|じかん}",
+      "meaningZh": "时间；小时",
+      "partOfSpeech": "名词",
+      "tags": [
+        "时间"
+      ],
+      "examples": [
+        {
+          "ja": "今日は時間がありません。",
+          "furigana": "{今日|きょう}は{時間|じかん}がありません。",
+          "zh": "今天没有时间。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-densha",
+      "expression": "電車",
+      "reading": "でんしゃ",
+      "furigana": "{電車|でんしゃ}",
+      "meaningZh": "电车",
+      "partOfSpeech": "名词",
+      "tags": [
+        "交通"
+      ],
+      "examples": [
+        {
+          "ja": "電車で会社へ行きます。",
+          "furigana": "{電車|でんしゃ}で{会社|かいしゃ}へ{行|い}きます。",
+          "zh": "坐电车去公司。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kaisha",
+      "expression": "会社",
+      "reading": "かいしゃ",
+      "furigana": "{会社|かいしゃ}",
+      "meaningZh": "公司",
+      "partOfSpeech": "名词",
+      "tags": [
+        "场所"
+      ],
+      "examples": [
+        {
+          "ja": "父の会社は東京にあります。",
+          "furigana": "{父|ちち}の{会社|かいしゃ}は{東京|とうきょう}にあります。",
+          "zh": "我父亲的公司在东京。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-heya",
+      "expression": "部屋",
+      "reading": "へや",
+      "furigana": "{部屋|へや}",
+      "meaningZh": "房间",
+      "partOfSpeech": "名词",
+      "tags": [
+        "场所"
+      ],
+      "examples": [
+        {
+          "ja": "土曜日に部屋を掃除します。",
+          "furigana": "{土曜日|どようび}に{部屋|へや}を{掃除|そうじ}します。",
+          "zh": "星期六打扫房间。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-tenki",
+      "expression": "天気",
+      "reading": "てんき",
+      "furigana": "{天気|てんき}",
+      "meaningZh": "天气",
+      "partOfSpeech": "名词",
+      "examples": [
+        {
+          "ja": "今日はいい天気ですね。",
+          "furigana": "{今日|きょう}はいい{天気|てんき}ですね。",
+          "zh": "今天天气真好啊。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-mizu",
+      "expression": "水",
+      "reading": "みず",
+      "furigana": "{水|みず}",
+      "meaningZh": "水（指凉水，热水是「お湯」）",
+      "partOfSpeech": "名词",
+      "tags": [
+        "饮食"
+      ],
+      "examples": [
+        {
+          "ja": "水を一杯ください。",
+          "furigana": "{水|みず}を{一杯|いっぱい}ください。",
+          "zh": "请给我一杯水。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-sakana",
+      "expression": "魚",
+      "reading": "さかな",
+      "furigana": "{魚|さかな}",
+      "meaningZh": "鱼",
+      "partOfSpeech": "名词",
+      "tags": [
+        "饮食"
+      ],
+      "examples": [
+        {
+          "ja": "私は魚が好きです。",
+          "furigana": "{私|わたし}は{魚|さかな}が{好|す}きです。",
+          "zh": "我喜欢吃鱼。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-yasai",
+      "expression": "野菜",
+      "reading": "やさい",
+      "furigana": "{野菜|やさい}",
+      "meaningZh": "蔬菜",
+      "partOfSpeech": "名词",
+      "tags": [
+        "饮食"
+      ],
+      "examples": [
+        {
+          "ja": "毎日野菜を食べます。",
+          "furigana": "{毎日|まいにち}{野菜|やさい}を{食|た}べます。",
+          "zh": "每天吃蔬菜。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-tegami",
+      "expression": "手紙",
+      "reading": "てがみ",
+      "furigana": "{手紙|てがみ}",
+      "meaningZh": "信（注意：不是「手纸」）",
+      "partOfSpeech": "名词",
+      "examples": [
+        {
+          "ja": "母に手紙を書きます。",
+          "furigana": "{母|はは}に{手紙|てがみ}を{書|か}きます。",
+          "zh": "给母亲写信。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-shashin",
+      "expression": "写真",
+      "reading": "しゃしん",
+      "furigana": "{写真|しゃしん}",
+      "meaningZh": "照片",
+      "partOfSpeech": "名词",
+      "examples": [
+        {
+          "ja": "ここで写真を撮ってもいいですか。",
+          "furigana": "ここで{写真|しゃしん}を{撮|と}ってもいいですか。",
+          "zh": "可以在这里拍照吗？"
+        }
+      ]
+    },
+    {
+      "slug": "n5-shigoto",
+      "expression": "仕事",
+      "reading": "しごと",
+      "furigana": "{仕事|しごと}",
+      "meaningZh": "工作",
+      "partOfSpeech": "名词",
+      "examples": [
+        {
+          "ja": "仕事は九時に始まります。",
+          "furigana": "{仕事|しごと}は{九時|くじ}に{始|はじ}まります。",
+          "zh": "工作九点开始。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kyou",
+      "expression": "今日",
+      "reading": "きょう",
+      "furigana": "{今日|きょう}",
+      "meaningZh": "今天",
+      "partOfSpeech": "名词",
+      "tags": [
+        "时间"
+      ],
+      "examples": [
+        {
+          "ja": "今日は月曜日です。",
+          "furigana": "{今日|きょう}は{月曜日|げつようび}です。",
+          "zh": "今天是星期一。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-mainichi",
+      "expression": "毎日",
+      "reading": "まいにち",
+      "furigana": "{毎日|まいにち}",
+      "meaningZh": "每天",
+      "partOfSpeech": "名词",
+      "tags": [
+        "时间"
+      ],
+      "examples": [
+        {
+          "ja": "毎日日本語を勉強します。",
+          "furigana": "{毎日|まいにち}{日本語|にほんご}を{勉強|べんきょう}します。",
+          "zh": "每天学习日语。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-rainen",
+      "expression": "来年",
+      "reading": "らいねん",
+      "furigana": "{来年|らいねん}",
+      "meaningZh": "明年",
+      "partOfSpeech": "名词",
+      "tags": [
+        "时间"
+      ],
+      "examples": [
+        {
+          "ja": "来年日本へ行きます。",
+          "furigana": "{来年|らいねん}{日本|にほん}へ{行|い}きます。",
+          "zh": "明年去日本。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-taberu",
+      "expression": "食べる",
+      "reading": "たべる",
+      "furigana": "{食|た}べる",
+      "meaningZh": "吃",
+      "partOfSpeech": "动词·二类",
+      "tags": [
+        "饮食"
+      ],
+      "examples": [
+        {
+          "ja": "朝ご飯にパンを食べます。",
+          "furigana": "{朝|あさ}ご{飯|はん}にパンを{食|た}べます。",
+          "zh": "早饭吃面包。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-nomu",
+      "expression": "飲む",
+      "reading": "のむ",
+      "furigana": "{飲|の}む",
+      "meaningZh": "喝；服（药）",
+      "partOfSpeech": "动词·一类",
+      "tags": [
+        "饮食"
+      ],
+      "examples": [
+        {
+          "ja": "毎朝コーヒーを飲みます。",
+          "furigana": "{毎朝|まいあさ}コーヒーを{飲|の}みます。",
+          "zh": "每天早上喝咖啡。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-miru",
+      "expression": "見る",
+      "reading": "みる",
+      "furigana": "{見|み}る",
+      "meaningZh": "看，观看",
+      "partOfSpeech": "动词·二类",
+      "examples": [
+        {
+          "ja": "今テレビを見ています。",
+          "furigana": "{今|いま}テレビを{見|み}ています。",
+          "zh": "现在正在看电视。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kiku",
+      "expression": "聞く",
+      "reading": "きく",
+      "furigana": "{聞|き}く",
+      "meaningZh": "听；问",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "音楽を聞くのが好きです。",
+          "furigana": "{音楽|おんがく}を{聞|き}くのが{好|す}きです。",
+          "zh": "我喜欢听音乐。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-iku",
+      "expression": "行く",
+      "reading": "いく",
+      "furigana": "{行|い}く",
+      "meaningZh": "去",
+      "partOfSpeech": "动词·一类",
+      "tags": [
+        "特殊变形"
+      ],
+      "examples": [
+        {
+          "ja": "明日、京都へ行きます。",
+          "furigana": "{明日|あした}、{京都|きょうと}へ{行|い}きます。",
+          "zh": "明天去京都。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kuru",
+      "expression": "来る",
+      "reading": "くる",
+      "furigana": "{来|く}る",
+      "meaningZh": "来",
+      "partOfSpeech": "动词·三类",
+      "tags": [
+        "特殊变形"
+      ],
+      "examples": [
+        {
+          "ja": "友達が家に来ます。",
+          "furigana": "{友達|ともだち}が{家|いえ}に{来|き}ます。",
+          "zh": "朋友要来我家。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kaeru",
+      "expression": "帰る",
+      "reading": "かえる",
+      "furigana": "{帰|かえ}る",
+      "meaningZh": "回，回去（回家、回国）",
+      "partOfSpeech": "动词·一类",
+      "tags": [
+        "易错·形似二类实为一类"
+      ],
+      "examples": [
+        {
+          "ja": "六時に家へ帰ります。",
+          "furigana": "{六時|ろくじ}に{家|いえ}へ{帰|かえ}ります。",
+          "zh": "六点回家。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-hanasu",
+      "expression": "話す",
+      "reading": "はなす",
+      "furigana": "{話|はな}す",
+      "meaningZh": "说，讲，谈",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "日本語を少し話します。",
+          "furigana": "{日本語|にほんご}を{少|すこ}し{話|はな}します。",
+          "zh": "我说一点日语。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-yomu",
+      "expression": "読む",
+      "reading": "よむ",
+      "furigana": "{読|よ}む",
+      "meaningZh": "读，阅读",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "毎晩本を読みます。",
+          "furigana": "{毎晩|まいばん}{本|ほん}を{読|よ}みます。",
+          "zh": "每天晚上读书。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kaku",
+      "expression": "書く",
+      "reading": "かく",
+      "furigana": "{書|か}く",
+      "meaningZh": "写",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "ノートに名前を書いてください。",
+          "furigana": "ノートに{名前|なまえ}を{書|か}いてください。",
+          "zh": "请在笔记本上写名字。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-kau",
+      "expression": "買う",
+      "reading": "かう",
+      "furigana": "{買|か}う",
+      "meaningZh": "买",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "スーパーで野菜を買いました。",
+          "furigana": "スーパーで{野菜|やさい}を{買|か}いました。",
+          "zh": "在超市买了蔬菜。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-okiru",
+      "expression": "起きる",
+      "reading": "おきる",
+      "furigana": "{起|お}きる",
+      "meaningZh": "起床；起来",
+      "partOfSpeech": "动词·二类",
+      "examples": [
+        {
+          "ja": "毎朝六時に起きます。",
+          "furigana": "{毎朝|まいあさ}{六時|ろくじ}に{起|お}きます。",
+          "zh": "每天早上六点起床。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-neru",
+      "expression": "寝る",
+      "reading": "ねる",
+      "furigana": "{寝|ね}る",
+      "meaningZh": "睡觉",
+      "partOfSpeech": "动词·二类",
+      "examples": [
+        {
+          "ja": "昨日は早く寝ました。",
+          "furigana": "{昨日|きのう}は{早|はや}く{寝|ね}ました。",
+          "zh": "昨天睡得很早。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-hataraku",
+      "expression": "働く",
+      "reading": "はたらく",
+      "furigana": "{働|はたら}く",
+      "meaningZh": "工作，劳动",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "姉は銀行で働いています。",
+          "furigana": "{姉|あね}は{銀行|ぎんこう}で{働|はたら}いています。",
+          "zh": "我姐姐在银行工作。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-matsu",
+      "expression": "待つ",
+      "reading": "まつ",
+      "furigana": "{待|ま}つ",
+      "meaningZh": "等，等待",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "ここで少し待ってください。",
+          "furigana": "ここで{少|すこ}し{待|ま}ってください。",
+          "zh": "请在这里稍等。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-wakaru",
+      "expression": "分かる",
+      "reading": "わかる",
+      "furigana": "{分|わ}かる",
+      "meaningZh": "懂，明白（用助词「が」）",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "この漢字の意味が分かりません。",
+          "furigana": "この{漢字|かんじ}の{意味|いみ}が{分|わ}かりません。",
+          "zh": "我不懂这个汉字的意思。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-oshieru",
+      "expression": "教える",
+      "reading": "おしえる",
+      "furigana": "{教|おし}える",
+      "meaningZh": "教；告诉",
+      "partOfSpeech": "动词·二类",
+      "examples": [
+        {
+          "ja": "先生が漢字を教えてくれました。",
+          "furigana": "{先生|せんせい}が{漢字|かんじ}を{教|おし}えてくれました。",
+          "zh": "老师教了我汉字。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-tsukau",
+      "expression": "使う",
+      "reading": "つかう",
+      "furigana": "{使|つか}う",
+      "meaningZh": "使用，用",
+      "partOfSpeech": "动词·一类",
+      "examples": [
+        {
+          "ja": "この辞書を使ってもいいですか。",
+          "furigana": "この{辞書|じしょ}を{使|つか}ってもいいですか。",
+          "zh": "可以用这本词典吗？"
+        }
+      ]
+    },
+    {
+      "slug": "n5-benkyou-suru",
+      "expression": "勉強する",
+      "reading": "べんきょうする",
+      "furigana": "{勉強|べんきょう}する",
+      "meaningZh": "学习，用功",
+      "partOfSpeech": "动词·三类",
+      "examples": [
+        {
+          "ja": "図書館で日本語を勉強します。",
+          "furigana": "{図書館|としょかん}で{日本語|にほんご}を{勉強|べんきょう}します。",
+          "zh": "在图书馆学习日语。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-ookii",
+      "expression": "大きい",
+      "reading": "おおきい",
+      "furigana": "{大|おお}きい",
+      "meaningZh": "大的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "公園に大きい犬がいます。",
+          "furigana": "{公園|こうえん}に{大|おお}きい{犬|いぬ}がいます。",
+          "zh": "公园里有一只大狗。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-chiisai",
+      "expression": "小さい",
+      "reading": "ちいさい",
+      "furigana": "{小|ちい}さい",
+      "meaningZh": "小的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "小さい部屋に住んでいます。",
+          "furigana": "{小|ちい}さい{部屋|へや}に{住|す}んでいます。",
+          "zh": "我住在一间小房间里。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-atarashii",
+      "expression": "新しい",
+      "reading": "あたらしい",
+      "furigana": "{新|あたら}しい",
+      "meaningZh": "新的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "新しい靴を買いました。",
+          "furigana": "{新|あたら}しい{靴|くつ}を{買|か}いました。",
+          "zh": "买了新鞋。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-furui",
+      "expression": "古い",
+      "reading": "ふるい",
+      "furigana": "{古|ふる}い",
+      "meaningZh": "旧的，古老的（不用于人的年龄）",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "この寺はとても古いです。",
+          "furigana": "この{寺|てら}はとても{古|ふる}いです。",
+          "zh": "这座寺庙非常古老。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-takai",
+      "expression": "高い",
+      "reading": "たかい",
+      "furigana": "{高|たか}い",
+      "meaningZh": "高的；贵的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "この店は少し高いです。",
+          "furigana": "この{店|みせ}は{少|すこ}し{高|たか}いです。",
+          "zh": "这家店有点贵。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-yasui",
+      "expression": "安い",
+      "reading": "やすい",
+      "furigana": "{安|やす}い",
+      "meaningZh": "便宜的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "あの店の野菜は安いです。",
+          "furigana": "あの{店|みせ}の{野菜|やさい}は{安|やす}いです。",
+          "zh": "那家店的蔬菜很便宜。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-isogashii",
+      "expression": "忙しい",
+      "reading": "いそがしい",
+      "furigana": "{忙|いそが}しい",
+      "meaningZh": "忙的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "今週はとても忙しいです。",
+          "furigana": "{今週|こんしゅう}はとても{忙|いそが}しいです。",
+          "zh": "这周非常忙。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-tanoshii",
+      "expression": "楽しい",
+      "reading": "たのしい",
+      "furigana": "{楽|たの}しい",
+      "meaningZh": "快乐的，愉快的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "旅行はとても楽しかったです。",
+          "furigana": "{旅行|りょこう}はとても{楽|たの}しかったです。",
+          "zh": "旅行非常愉快。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-muzukashii",
+      "expression": "難しい",
+      "reading": "むずかしい",
+      "furigana": "{難|むずか}しい",
+      "meaningZh": "难的",
+      "partOfSpeech": "い形容词",
+      "examples": [
+        {
+          "ja": "この問題は難しいです。",
+          "furigana": "この{問題|もんだい}は{難|むずか}しいです。",
+          "zh": "这道题很难。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-genki",
+      "expression": "元気",
+      "reading": "げんき",
+      "furigana": "{元気|げんき}",
+      "meaningZh": "精神好，健康有活力",
+      "partOfSpeech": "な形容词",
+      "examples": [
+        {
+          "ja": "お元気ですか。",
+          "furigana": "お{元気|げんき}ですか。",
+          "zh": "您身体好吗？"
+        }
+      ]
+    },
+    {
+      "slug": "n5-shizuka",
+      "expression": "静か",
+      "reading": "しずか",
+      "furigana": "{静|しず}か",
+      "meaningZh": "安静的",
+      "partOfSpeech": "な形容词",
+      "examples": [
+        {
+          "ja": "図書館はとても静かです。",
+          "furigana": "{図書館|としょかん}はとても{静|しず}かです。",
+          "zh": "图书馆非常安静。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-benri",
+      "expression": "便利",
+      "reading": "べんり",
+      "furigana": "{便利|べんり}",
+      "meaningZh": "方便的",
+      "partOfSpeech": "な形容词",
+      "examples": [
+        {
+          "ja": "この駅は便利です。",
+          "furigana": "この{駅|えき}は{便利|べんり}です。",
+          "zh": "这个车站很方便。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-yuumei",
+      "expression": "有名",
+      "reading": "ゆうめい",
+      "furigana": "{有名|ゆうめい}",
+      "meaningZh": "有名的",
+      "partOfSpeech": "な形容词",
+      "examples": [
+        {
+          "ja": "京都は有名な町です。",
+          "furigana": "{京都|きょうと}は{有名|ゆうめい}な{町|まち}です。",
+          "zh": "京都是座有名的城市。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-chotto",
+      "expression": "ちょっと",
+      "reading": "ちょっと",
+      "meaningZh": "稍微，一点；（婉拒时）有点不方便",
+      "partOfSpeech": "副词",
+      "examples": [
+        {
+          "ja": "ちょっと待ってください。",
+          "zh": "请稍等一下。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-takusan",
+      "expression": "たくさん",
+      "reading": "たくさん",
+      "meaningZh": "很多",
+      "partOfSpeech": "副词",
+      "examples": [
+        {
+          "ja": "本をたくさん読みました。",
+          "furigana": "{本|ほん}をたくさん{読|よ}みました。",
+          "zh": "读了很多书。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-mou",
+      "expression": "もう",
+      "reading": "もう",
+      "meaningZh": "已经（与「まだ」对照）",
+      "partOfSpeech": "副词",
+      "examples": [
+        {
+          "ja": "もう昼ご飯を食べました。",
+          "furigana": "もう{昼|ひる}ご{飯|はん}を{食|た}べました。",
+          "zh": "已经吃过午饭了。"
+        }
+      ]
+    },
+    {
+      "slug": "n5-mada",
+      "expression": "まだ",
+      "reading": "まだ",
+      "meaningZh": "还，尚未（与「もう」对照）",
+      "partOfSpeech": "副词",
+      "examples": [
+        {
+          "ja": "まだ宿題が終わっていません。",
+          "furigana": "まだ{宿題|しゅくだい}が{終|お}わっていません。",
+          "zh": "作业还没做完。"
+        }
+      ]
+    }
+  ]
+}

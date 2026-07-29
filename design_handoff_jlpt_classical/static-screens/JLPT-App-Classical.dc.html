@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/classical-bdfb7c94-19c3-4610-a643-1e4b0b501ee0/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:var(--color-neutral-200); }
+  body { font-family:var(--font-body); -webkit-font-smoothing:antialiased; }
+  ruby { ruby-position:over; }
+  rt { font-size:.5em; font-weight:400; opacity:.7; }
+</style>
+</helmet>
+
+<section style="padding:var(--space-8) var(--space-8) 80px;display:flex;flex-direction:column;gap:var(--space-8);--font-jp:'Noto Serif JP',serif">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:760px">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">Turn 2 · Classical</div>
+    <h1 style="margin:0;font-weight:400;font-size:44px">读本一样的界面</h1>
+    <p style="margin:0;font-size:15px;line-height:1.8;color:var(--color-neutral-700)">这一版建在项目绑定的 Classical 系统上：Cormorant Garamond 标题、Lora 正文、日文用 Noto Serif JP 接续同一套明朝气质；金色只作描边和细线，按钮是描边而非填色，卡片靠 hairline 分区。全部 7 个页面加空状态、错误态、完成页，浅色为主、附深色两屏。<a href="#2a">2a</a> 是这一版；上一轮两个自选方向仍在 <em>JLPT-App-Redesign</em> 里。系统按 readme 的指示只链 <em>styles.css</em>（唯一样式源）：这里没有用到需要脚本的组件，所以不加载 <em>_ds_bundle.js</em>。</p>
+  </div>
+
+  <div id="2a" style="display:flex;flex-wrap:wrap;gap:var(--space-6);max-width:1740px;align-items:flex-start">
+
+    <!-- 今日 -->
+    <div data-screen-label="2a-今日" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)"><span>9:41</span><span>第 42 天</span></div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400;letter-spacing:.01em">日本語 · N5</div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">七月廿七</div>
+      </div>
+
+      <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+        <div class="card" style="gap:var(--space-3);padding:var(--space-4)">
+          <div class="card-kicker">今日待办</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div style="font-family:var(--font-heading);font-size:58px;font-weight:400;line-height:.9;font-feature-settings:'tnum'">51</div>
+            <div style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';padding-bottom:var(--space-1)">约 14 分钟</div>
+          </div>
+          <div style="display:flex;border-top:1px solid var(--color-divider);margin-top:var(--space-1)">
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum';color:var(--color-accent-700)">12</span>
+              <span style="font-size:11px;letter-spacing:.06em;color:var(--color-neutral-600)">生词</span>
+            </div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">5</span>
+              <span style="font-size:11px;letter-spacing:.06em;color:var(--color-neutral-600)">巩固</span>
+            </div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">34</span>
+              <span style="font-size:11px;letter-spacing:.06em;color:var(--color-neutral-600)">复习</span>
+            </div>
+          </div>
+          <div class="btn btn-primary btn-block" style="justify-content:center;padding:13px 0;font-size:15px">开始 · 51 张</div>
+        </div>
+
+        <div class="card" style="gap:var(--space-2);padding:var(--space-4)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div class="card-kicker">读到一半</div>
+            <div style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">34%</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-jp);font-size:22px;font-weight:500;letter-spacing:.04em">羅生門</span>
+              <span style="font-family:var(--font-jp);font-size:12px;color:var(--color-neutral-600)">芥川龍之介 · 第 128 段</span>
+            </div>
+            <div class="btn btn-secondary" style="padding:7px 14px;font-size:13px">续读</div>
+          </div>
+          <div style="height:1px;background:var(--color-divider);position:relative;margin-top:var(--space-2)"><i style="position:absolute;left:0;top:-1px;height:3px;width:34%;background:var(--color-accent)"></i></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">词库</span>
+            <span style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'">已接触 46 / 120 · 未学 74</span>
+          </div>
+          <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:38.3%;background:var(--color-neutral-800)"></i></div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:var(--space-2);padding-top:var(--space-1)">
+          <span style="font-size:12px;color:var(--color-neutral-600);margin-right:var(--space-1)">连续 6 天</span>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200)"></i>
+          <i style="width:10px;height:10px;border:1px solid var(--color-divider)"></i>
+        </div>
+      </div>
+
+      <div style="height:74px;border-top:1px solid var(--color-divider);display:flex;padding-bottom:14px">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-1);border-top:2px solid var(--color-accent);margin-top:-1px;color:var(--color-accent-700)">
+          <span style="font-family:var(--font-heading);font-size:16px">学习</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--color-neutral-600)">
+          <span style="font-family:var(--font-heading);font-size:16px">书架</span>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--color-neutral-600)">
+          <span style="font-family:var(--font-heading);font-size:16px">设置</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 复习卡片 -->
+    <div data-screen-label="2a-复习卡片" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600)"><span>9:41</span></div>
+      <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;gap:var(--space-3);border-bottom:1px solid var(--color-divider)">
+        <span style="font-size:13px;color:var(--color-neutral-600)">收工</span>
+        <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:5.9%;background:var(--color-accent)"></i></div>
+        <span style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">03 / 51</span>
+      </div>
+
+      <div style="flex:1;padding:var(--space-6) var(--space-4) 0;display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+        <span class="tag tag-outline" style="align-self:flex-start">初见</span>
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <div style="font-family:var(--font-jp);font-size:62px;font-weight:500;letter-spacing:.06em;line-height:1.1">電車</div>
+          <div style="font-family:var(--font-jp);font-size:19px;letter-spacing:.14em;color:var(--color-neutral-600)">でんしゃ</div>
+        </div>
+        <div class="hr" style="width:48px;border:0;border-top:1px solid var(--color-accent);margin:0"></div>
+        <div style="display:flex;align-items:baseline;gap:var(--space-2);flex-wrap:wrap">
+          <span style="font-family:var(--font-heading);font-size:28px;font-weight:600">电车</span>
+          <span class="tag tag-neutral">名词</span>
+          <span class="tag tag-accent">交通</span>
+        </div>
+        <div style="border-left:1px solid var(--color-accent);padding:var(--space-2) 0 var(--space-2) var(--space-4);display:flex;flex-direction:column;gap:var(--space-2)">
+          <div style="font-family:var(--font-jp);font-size:20px;line-height:2.2"><ruby>電車<rt>でんしゃ</rt></ruby>で<ruby>会社<rt>かいしゃ</rt></ruby>へ<ruby>行<rt>い</rt></ruby>きます。</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">坐电车去公司。</div>
+        </div>
+        <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;padding-bottom:var(--space-3);font-size:11px;letter-spacing:.06em;color:var(--color-neutral-500);font-feature-settings:'tnum'">
+          <span>EF 2.50 · 第 0 次</span>
+          <span>n5-densha</span>
+        </div>
+      </div>
+
+      <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider)">
+        <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500)"><span>下次到期</span><span>上下滑动亦可</span></div>
+        <div style="display:flex;gap:var(--space-2)">
+          <div class="btn btn-secondary" style="flex:1;flex-direction:column;gap:2px;padding:11px 0"><span style="font-size:13px">忘了</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">1分</span></div>
+          <div class="btn btn-secondary" style="flex:1;flex-direction:column;gap:2px;padding:11px 0"><span style="font-size:13px">困难</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">6分</span></div>
+          <div class="btn btn-primary" style="flex:1.3;flex-direction:column;gap:2px;padding:11px 0;background:var(--color-accent-100)"><span style="font-size:13px">记得</span><span style="font-size:11px;font-feature-settings:'tnum'">10分</span></div>
+          <div class="btn btn-secondary" style="flex:1;flex-direction:column;gap:2px;padding:11px 0"><span style="font-size:13px">简单</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">4天</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 完成 -->
+    <div data-screen-label="2a-完成" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600)"><span>9:41</span></div>
+      <div style="flex:1;padding:0 var(--space-6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);text-align:center;position:relative">
+        <div style="font-family:var(--font-heading);font-size:170px;font-weight:400;line-height:1;color:var(--color-accent-200);font-feature-settings:'tnum';position:absolute;top:150px;user-select:none">51</div>
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding-top:var(--space-8)">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)">今日毕</div>
+          <div style="font-family:var(--font-heading);font-size:34px;font-weight:400">五十一张，收工</div>
+          <div style="font-size:13px;color:var(--color-neutral-700);line-height:1.9">还有 5 张巩固卡没到点，<br>约 18 分钟后回来再看一眼。</div>
+        </div>
+        <div style="display:flex;width:100%;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);margin-top:var(--space-4)">
+          <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">44</span><span style="font-size:11px;color:var(--color-neutral-600)">记得</span></div>
+          <div style="width:1px;background:var(--color-divider)"></div>
+          <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">5</span><span style="font-size:11px;color:var(--color-neutral-600)">困难</span></div>
+          <div style="width:1px;background:var(--color-divider)"></div>
+          <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum';color:var(--color-accent-700)">2</span><span style="font-size:11px;color:var(--color-neutral-600)">忘了</span></div>
+          <div style="width:1px;background:var(--color-divider)"></div>
+          <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">13′</span><span style="font-size:11px;color:var(--color-neutral-600)">用时</span></div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);width:100%;padding-top:var(--space-2)">
+          <div class="btn btn-secondary" style="flex:1;justify-content:center;padding:12px 0">回首页</div>
+          <div class="btn btn-primary" style="flex:1;justify-content:center;padding:12px 0">去读羅生門</div>
+        </div>
+      </div>
+      <div style="height:74px;border-top:1px solid var(--color-divider)"></div>
+    </div>
+
+    <!-- 书架 -->
+    <div data-screen-label="2a-书架" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span>9:41</span><span>6 册 · 60,271 字</span></div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">书架</div>
+        <div class="btn btn-primary" style="padding:5px 12px;font-size:13px">导入</div>
+      </div>
+      <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+        <div class="card" style="padding:var(--space-4);gap:var(--space-2)">
+          <div class="card-kicker">正在读</div>
+          <div style="display:flex;align-items:flex-start;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-jp);font-size:25px;font-weight:500;letter-spacing:.04em">羅生門</span>
+              <span style="font-family:var(--font-jp);font-size:13px;color:var(--color-neutral-600)">芥川龍之介</span>
+            </div>
+            <span style="font-family:var(--font-heading);font-size:28px;font-feature-settings:'tnum';color:var(--color-accent-700)">34<span style="font-size:14px">%</span></span>
+          </div>
+          <div style="height:1px;background:var(--color-divider);position:relative;margin:var(--space-2) 0"><i style="position:absolute;left:0;top:-1px;height:3px;width:34%;background:var(--color-accent)"></i></div>
+          <div style="display:flex;gap:var(--space-3);font-size:11px;letter-spacing:.05em;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span>10,318 字</span><span>原文注音</span><span>Shift_JIS</span><span style="margin-left:auto">128 / 376 段</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">蜘蛛の糸</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">芥川龍之介 · 5,140 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-neutral-500)">未读</span>
+          </div>
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">走れメロス</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">太宰治 · 15,702 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-accent-700);font-feature-settings:'tnum'">12%</span>
+          </div>
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">セロ弾きのゴーシュ</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">宮沢賢治 · 11,845 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-neutral-500)">未读</span>
+          </div>
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">ごん狐</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">新美南吉 · 7,364 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-neutral-500)">未读</span>
+          </div>
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">手袋を買いに</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">新美南吉 · 6,204 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-neutral-500)">未读</span>
+          </div>
+          <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3)">
+            <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+              <span style="font-family:var(--font-jp);font-size:17px;font-weight:500;letter-spacing:.03em">杜子春</span>
+              <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">芥川龍之介 · 9,902 字 · 原文注音</span>
+            </div>
+            <span style="font-size:12px;color:var(--color-accent-700)">读完</span>
+          </div>
+        </div>
+      </div>
+      <div style="height:74px;border-top:1px solid var(--color-divider);display:flex;padding-bottom:14px">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">学习</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;border-top:2px solid var(--color-accent);margin-top:-1px;color:var(--color-accent-700)"><span style="font-family:var(--font-heading);font-size:16px">书架</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">设置</span></div>
+      </div>
+    </div>
+
+    <!-- 阅读器 · 横排 -->
+    <div data-screen-label="2a-阅读器-横排" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span>9:41</span><span>34%</span></div>
+      <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <span style="font-size:13px;color:var(--color-neutral-600)">← 书架</span>
+        <span style="font-family:var(--font-jp);font-size:13px;letter-spacing:.12em;color:var(--color-neutral-700)">羅生門</span>
+        <span style="font-family:var(--font-heading);font-size:17px;color:var(--color-accent)">Aa</span>
+      </div>
+      <div style="flex:1;padding:var(--space-4) var(--space-4) 0;overflow:hidden;font-family:var(--font-jp);font-size:19px;line-height:2.25;letter-spacing:.02em;text-align:justify;display:flex;flex-direction:column;gap:var(--space-4)">
+        <p style="margin:0">　<ruby>或日<rt>あるひ</rt></ruby>の<ruby>暮方<rt>くれがた</rt></ruby>の<ruby>事<rt>こと</rt></ruby>である。<ruby>一人<rt>ひとり</rt></ruby>の<ruby>下人<rt>げにん</rt></ruby>が、<ruby>羅生門<rt>らしょうもん</rt></ruby>の<ruby>下<rt>した</rt></ruby>で<ruby>雨<rt>あま</rt></ruby>やみを<span style="border-bottom:2px solid var(--color-accent)">待って</span>いた。</p>
+        <p style="margin:0">　<ruby>広<rt>ひろ</rt></ruby>い<ruby>門<rt>もん</rt></ruby>の<ruby>下<rt>した</rt></ruby>には、この<ruby>男<rt>おとこ</rt></ruby>のほかに<ruby>誰<rt>だれ</rt></ruby>もいない。ただ、<ruby>所々<rt>ところどころ</rt></ruby><ruby>丹塗<rt>にぬり</rt></ruby>の<ruby>剥<rt>は</rt></ruby>げた、<ruby>大<rt>おお</rt></ruby>きな<ruby>円柱<rt>まるばしら</rt></ruby>に、<ruby>蟋蟀<rt>きりぎりす</rt></ruby>が<ruby>一匹<rt>いっぴき</rt></ruby>とまっている。</p>
+        <p style="margin:0">　<ruby>何故<rt>なぜ</rt></ruby>ならば、この<ruby>二三年<rt>にさんねん</rt></ruby>、<ruby>京都<rt>きょうと</rt></ruby>には、<ruby>地震<rt>じしん</rt></ruby>とか<ruby>辻風<rt>つじかぜ</rt></ruby>とか<ruby>火事<rt>かじ</rt></ruby>とか<ruby>饑饉<rt>ききん</rt></ruby>とかいう<ruby>災<rt>わざわい</rt></ruby>が<ruby>続<rt>つづ</rt></ruby>いて<ruby>起<rt>おこ</rt></ruby>った。</p>
+      </div>
+      <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-top:1px solid var(--color-divider)">
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">128</span>
+        <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:34%;top:-3px;width:7px;height:7px;background:var(--color-accent);margin-left:-3px"></i></div>
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">376</span>
+      </div>
+    </div>
+
+    <!-- 阅读器 · 竖排 -->
+    <div data-screen-label="2a-阅读器-竖排" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span>9:41</span><span>34%</span></div>
+      <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <span style="font-size:13px;color:var(--color-neutral-600)">←</span>
+        <span class="seg" style="font-family:var(--font-heading)">
+          <span class="seg-opt" style="padding:5px 14px;color:var(--color-neutral-600)">横</span>
+          <span class="seg-opt" style="padding:5px 14px;color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent)">縦</span>
+        </span>
+        <span style="font-family:var(--font-heading);font-size:17px;color:var(--color-accent)">Aa</span>
+      </div>
+      <div style="height:640px;padding:var(--space-4) var(--space-4) 0;display:flex;justify-content:flex-end;overflow:hidden">
+        <div style="writing-mode:vertical-rl;font-family:var(--font-jp);font-size:19px;line-height:2.1;letter-spacing:.05em;height:620px;overflow:hidden">
+          <p style="margin:0 0 0 var(--space-2)">　<ruby>或日<rt>あるひ</rt></ruby>の<ruby>暮方<rt>くれがた</rt></ruby>の<ruby>事<rt>こと</rt></ruby>である。<ruby>一人<rt>ひとり</rt></ruby>の<ruby>下人<rt>げにん</rt></ruby>が、<ruby>羅生門<rt>らしょうもん</rt></ruby>の<ruby>下<rt>した</rt></ruby>で<ruby>雨<rt>あま</rt></ruby>やみを<span style="border-right:2px solid var(--color-accent)">待って</span>いた。</p>
+          <p style="margin:0 0 0 var(--space-2)">　<ruby>広<rt>ひろ</rt></ruby>い<ruby>門<rt>もん</rt></ruby>の<ruby>下<rt>した</rt></ruby>には、この<ruby>男<rt>おとこ</rt></ruby>のほかに<ruby>誰<rt>だれ</rt></ruby>もいない。ただ、<ruby>所々<rt>ところどころ</rt></ruby><ruby>丹塗<rt>にぬり</rt></ruby>の<ruby>剥<rt>は</rt></ruby>げた、<ruby>大<rt>おお</rt></ruby>きな<ruby>円柱<rt>まるばしら</rt></ruby>に、<ruby>蟋蟀<rt>きりぎりす</rt></ruby>が<ruby>一匹<rt>いっぴき</rt></ruby>とまっている。</p>
+          <p style="margin:0 0 0 var(--space-2)">　<ruby>何故<rt>なぜ</rt></ruby>ならば、この<ruby>二三年<rt>にさんねん</rt></ruby>、<ruby>京都<rt>きょうと</rt></ruby>には、<ruby>地震<rt>じしん</rt></ruby>とか<ruby>辻風<rt>つじかぜ</rt></ruby>とか<ruby>火事<rt>かじ</rt></ruby>とか<ruby>饑饉<rt>ききん</rt></ruby>とかいう<ruby>災<rt>わざわい</rt></ruby>が<ruby>続<rt>つづ</rt></ruby>いて<ruby>起<rt>おこ</rt></ruby>った。</p>
+        </div>
+      </div>
+      <div style="margin-top:auto;padding:var(--space-3) var(--space-4) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-top:1px solid var(--color-divider)">
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">376</span>
+        <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;right:34%;top:-3px;width:7px;height:7px;background:var(--color-accent);margin-right:-3px"></i></div>
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">128</span>
+      </div>
+    </div>
+
+    <!-- 单词详情 -->
+    <div data-screen-label="2a-单词详情" style="width:390px;height:844px;background:var(--color-neutral-400);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column;justify-content:flex-end;color:var(--color-text)">
+      <div style="height:640px;background:var(--color-bg);border-radius:var(--radius-lg) var(--radius-lg) 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg)">
+        <div style="padding:var(--space-3) 0 0;display:flex;justify-content:center"><i style="width:36px;height:1px;background:var(--color-neutral-400)"></i></div>
+        <div style="padding:var(--space-4) var(--space-4) var(--space-3);display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+          <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+            <div style="font-family:var(--font-jp);font-size:42px;font-weight:500;letter-spacing:.05em;line-height:1.2"><ruby>待<rt>ま</rt></ruby>って</div>
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">羅生門 · 第 128 段</div>
+          </div>
+          <div class="btn btn-secondary" style="padding:6px 12px;font-size:13px;color:var(--color-accent);border-color:var(--color-accent)">收藏</div>
+        </div>
+        <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+          <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">词形还原</div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <span style="font-family:var(--font-jp);font-size:27px;font-weight:500;letter-spacing:.04em">待つ</span>
+              <span class="tag tag-outline">动词 · 一类</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-2);font-size:13px;color:var(--color-neutral-700)">
+              <span style="font-family:var(--font-jp)">待って</span>
+              <span style="color:var(--color-neutral-500)">←</span>
+              <span class="tag tag-neutral">て形</span>
+              <span style="color:var(--color-neutral-500)">←</span>
+              <span style="font-family:var(--font-jp)">待つ</span>
+            </div>
+            <div style="font-size:12px;color:var(--color-neutral-500)">其他可能：待つる</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider);padding-top:var(--space-4)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">释义</span>
+              <span style="font-size:11px;letter-spacing:.08em;color:var(--color-neutral-500)">JMdict</span>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:var(--space-2)">
+              <span style="font-family:var(--font-jp);font-size:18px;font-weight:500">待つ・まつ</span>
+              <span class="tag tag-accent">常用</span>
+            </div>
+            <div style="font-size:15px;line-height:1.8">to wait; to await; to look forward to</div>
+            <div style="font-size:12px;color:var(--color-neutral-600);line-height:1.7">中文释义只覆盖 JLPT 核心词，这一条暫时只有英文。</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider);padding-top:var(--space-4)">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">笔记</div>
+            <div class="input" style="min-height:56px;color:var(--color-neutral-500);font-size:14px">记点什么…</div>
+          </div>
+        </div>
+        <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;gap:var(--space-2);border-top:1px solid var(--color-divider)">
+          <div class="btn btn-secondary" style="flex:1;justify-content:center;padding:12px 0">存进笔记</div>
+          <div class="btn btn-primary" style="flex:1.2;justify-content:center;padding:12px 0">加进今日卡组</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置 -->
+    <div data-screen-label="2a-设置" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600)"><span>9:41</span></div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">设置</div>
+      </div>
+      <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-6);overflow:hidden">
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">每日额度</div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-size:15px">新词上限</span><span style="font-family:var(--font-heading);font-size:26px;font-feature-settings:'tnum'">15</span></div>
+          <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:15%;background:var(--color-accent)"></i><i style="position:absolute;left:15%;top:-5px;width:11px;height:11px;border-radius:50%;background:var(--color-bg);border:1px solid var(--color-accent);margin-left:-5px"></i></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'"><span>0</span><span>100</span></div>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding-top:var(--space-2)"><span style="font-size:15px">复习上限</span><span style="font-family:var(--font-heading);font-size:26px;font-feature-settings:'tnum'">200</span></div>
+          <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:40%;background:var(--color-accent)"></i><i style="position:absolute;left:40%;top:-5px;width:11px;height:11px;border-radius:50%;background:var(--color-bg);border:1px solid var(--color-accent);margin-left:-5px"></i></div>
+          <div style="font-size:12px;color:var(--color-neutral-600);line-height:1.8">新词上限决定每天引进多少生面孔；复习上限是断更之后的护栏，免得回来时被两百多张卡按住。</div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding-bottom:var(--space-3)">阅读</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider)">
+            <span style="font-size:15px">例句显示振假名</span>
+            <span style="width:44px;height:24px;border-radius:100px;border:1px solid var(--color-accent);background:var(--color-accent-100);display:flex;align-items:center;justify-content:flex-end;padding:2px;box-sizing:border-box"><i style="display:block;width:18px;height:18px;border-radius:50%;background:var(--color-accent)"></i></span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider)">
+            <span style="font-size:15px">默认竖排</span>
+            <span style="width:44px;height:24px;border-radius:100px;border:1px solid var(--color-neutral-400);display:flex;align-items:center;padding:2px;box-sizing:border-box"><i style="display:block;width:18px;height:18px;border-radius:50%;background:var(--color-neutral-400)"></i></span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+            <span style="font-size:15px">外观</span>
+            <span class="seg">
+              <span class="seg-opt" style="color:var(--color-neutral-700)">浅</span>
+              <span class="seg-opt" style="color:var(--color-neutral-700)">深</span>
+              <span class="seg-opt" style="color:var(--color-accent);box-shadow:inset 0 0 0 1px var(--color-accent)">系统</span>
+            </span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">词库</div>
+          <div style="display:flex;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-heading);font-size:21px;font-feature-settings:'tnum'">120</span><span style="font-size:11px;color:var(--color-neutral-600)">总词条</span></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-heading);font-size:21px;font-feature-settings:'tnum'">74</span><span style="font-size:11px;color:var(--color-neutral-600)">未学</span></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-heading);font-size:21px;font-feature-settings:'tnum'">12</span><span style="font-size:11px;color:var(--color-neutral-600)">巩固中</span></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:3px"><span style="font-family:var(--font-heading);font-size:21px;font-feature-settings:'tnum'">34</span><span style="font-size:11px;color:var(--color-neutral-600)">复习中</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--color-neutral-700)"><span>JMdict 词典</span><span style="font-feature-settings:'tnum';color:var(--color-accent-700)">已安装 · 208,431 条</span></div>
+        </div>
+      </div>
+      <div style="height:74px;border-top:1px solid var(--color-divider);display:flex;padding-bottom:14px">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">学习</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">书架</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;border-top:2px solid var(--color-accent);margin-top:-1px;color:var(--color-accent-700)"><span style="font-family:var(--font-heading);font-size:16px">设置</span></div>
+      </div>
+    </div>
+
+    <!-- 空状态与错误态 -->
+    <div data-screen-label="2a-空状态与错误" style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600)"><span>9:41</span></div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">书架</div>
+        <div class="btn btn-primary" style="padding:5px 12px;font-size:13px">导入</div>
+      </div>
+      <div style="padding:var(--space-8) var(--space-6) 0;display:flex;flex-direction:column;align-items:center;gap:var(--space-4);text-align:center">
+        <div style="width:118px;height:154px;border:1px solid var(--color-divider);background:repeating-linear-gradient(135deg,var(--color-neutral-200) 0 6px,var(--color-bg) 6px 12px)"></div>
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">架子还空着</div>
+        <div style="font-size:13px;color:var(--color-neutral-700);line-height:2">导入 .txt 或带文字层的 PDF 就能开始读。<br>编码认得 UTF-8 / Shift_JIS / EUC-JP，<br>青空文庫的原文注音会自动识别。</div>
+        <div style="font-size:12px;color:var(--color-neutral-500)">扫描件不行 —— 本 App 不做 OCR。</div>
+        <div class="btn btn-primary" style="padding:12px 28px;font-size:15px;margin-top:var(--space-1)">导入文件</div>
+      </div>
+      <div style="margin-top:auto;padding:0 var(--space-4) var(--space-6);display:flex;flex-direction:column;gap:var(--space-2)">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-500)">错误态 · 同一套语气</div>
+        <div class="card" style="border-color:var(--color-accent);gap:var(--space-1);padding:var(--space-3)">
+          <div style="font-size:13px;line-height:1.8">rashomon.pdf（12 页）里没有文字层，多半是扫描件。<br><span style="color:var(--color-neutral-600)">换一份带文字层的文件试试。</span></div>
+        </div>
+        <div class="card" style="gap:var(--space-1);padding:var(--space-3)">
+          <div style="font-size:13px;line-height:1.8;color:var(--color-neutral-700)">词典未安装。跑一次 Tools/build_jmdict.py 后重新构建即可。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 深色 · 今日 -->
+    <div data-screen-label="2a-深色-今日" style="width:390px;height:844px;--color-bg:#1b1a18;--color-surface:#232120;--color-text:#ece9e4;--color-accent:#e1ad66;--color-divider:color-mix(in srgb,#ece9e4 18%,transparent);--color-neutral-500:#8e8a86;--color-neutral-600:#a29d98;--color-neutral-700:#c2bdb7;--color-neutral-800:#ddd8d2;--color-accent-100:color-mix(in srgb,#e1ad66 14%,transparent);--color-accent-200:color-mix(in srgb,#e1ad66 26%,transparent);--color-accent-700:#e1ad66;--color-accent-800:#facb8d;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)"><span>9:41</span><span>第 42 天</span></div>
+      <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <div style="font-family:var(--font-heading);font-size:26px;font-weight:400;letter-spacing:.01em">日本語 · N5</div>
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">七月廿七</div>
+      </div>
+      <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+        <div class="card" style="gap:var(--space-3);padding:var(--space-4)">
+          <div class="card-kicker">今日待办</div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div style="font-family:var(--font-heading);font-size:58px;font-weight:400;line-height:.9;font-feature-settings:'tnum'">51</div>
+            <div style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';padding-bottom:var(--space-1)">约 14 分钟</div>
+          </div>
+          <div style="display:flex;border-top:1px solid var(--color-divider);margin-top:var(--space-1)">
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum';color:var(--color-accent)">12</span><span style="font-size:11px;color:var(--color-neutral-600)">生词</span></div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">5</span><span style="font-size:11px;color:var(--color-neutral-600)">巩固</span></div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">34</span><span style="font-size:11px;color:var(--color-neutral-600)">复习</span></div>
+          </div>
+          <div class="btn btn-primary btn-block" style="justify-content:center;padding:13px 0;font-size:15px">开始 · 51 张</div>
+        </div>
+        <div class="card" style="gap:var(--space-2);padding:var(--space-4)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div class="card-kicker">读到一半</div>
+            <div style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">34%</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+              <span style="font-family:var(--font-jp);font-size:22px;font-weight:500;letter-spacing:.04em">羅生門</span>
+              <span style="font-family:var(--font-jp);font-size:12px;color:var(--color-neutral-600)">芥川龍之介 · 第 128 段</span>
+            </div>
+            <div class="btn btn-secondary" style="padding:7px 14px;font-size:13px">续读</div>
+          </div>
+          <div style="height:1px;background:var(--color-divider);position:relative;margin-top:var(--space-2)"><i style="position:absolute;left:0;top:-1px;height:3px;width:34%;background:var(--color-accent)"></i></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">词库</span>
+            <span style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'">已接触 46 / 120 · 未学 74</span>
+          </div>
+          <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;width:38.3%;background:var(--color-neutral-700)"></i></div>
+        </div>
+      </div>
+      <div style="height:74px;border-top:1px solid var(--color-divider);display:flex;padding-bottom:14px">
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;border-top:2px solid var(--color-accent);margin-top:-1px;color:var(--color-accent)"><span style="font-family:var(--font-heading);font-size:16px">学习</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">书架</span></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--color-neutral-600)"><span style="font-family:var(--font-heading);font-size:16px">设置</span></div>
+      </div>
+    </div>
+
+    <!-- 深色 · 阅读器 -->
+    <div data-screen-label="2a-深色-阅读器" style="width:390px;height:844px;--color-bg:#1b1a18;--color-text:#e6e2dc;--color-accent:#e1ad66;--color-divider:color-mix(in srgb,#e6e2dc 16%,transparent);--color-neutral-500:#8e8a86;--color-neutral-600:#a29d98;--color-neutral-700:#c2bdb7;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-lg);display:flex;flex-direction:column">
+      <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span>9:41</span><span>34%</span></div>
+      <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+        <span style="font-size:13px;color:var(--color-neutral-600)">← 书架</span>
+        <span style="font-family:var(--font-jp);font-size:13px;letter-spacing:.12em;color:var(--color-neutral-700)">羅生門</span>
+        <span style="font-family:var(--font-heading);font-size:17px;color:var(--color-accent)">Aa</span>
+      </div>
+      <div style="flex:1;padding:var(--space-4) var(--space-4) 0;overflow:hidden;font-family:var(--font-jp);font-size:19px;line-height:2.25;letter-spacing:.02em;text-align:justify;display:flex;flex-direction:column;gap:var(--space-4)">
+        <p style="margin:0">　<ruby>或日<rt>あるひ</rt></ruby>の<ruby>暮方<rt>くれがた</rt></ruby>の<ruby>事<rt>こと</rt></ruby>である。<ruby>一人<rt>ひとり</rt></ruby>の<ruby>下人<rt>げにん</rt></ruby>が、<ruby>羅生門<rt>らしょうもん</rt></ruby>の<ruby>下<rt>した</rt></ruby>で<ruby>雨<rt>あま</rt></ruby>やみを<span style="border-bottom:2px solid var(--color-accent)">待って</span>いた。</p>
+        <p style="margin:0">　<ruby>広<rt>ひろ</rt></ruby>い<ruby>門<rt>もん</rt></ruby>の<ruby>下<rt>した</rt></ruby>には、この<ruby>男<rt>おとこ</rt></ruby>のほかに<ruby>誰<rt>だれ</rt></ruby>もいない。ただ、<ruby>所々<rt>ところどころ</rt></ruby><ruby>丹塗<rt>にぬり</rt></ruby>の<ruby>剥<rt>は</rt></ruby>げた、<ruby>大<rt>おお</rt></ruby>きな<ruby>円柱<rt>まるばしら</rt></ruby>に、<ruby>蟋蟀<rt>きりぎりす</rt></ruby>が<ruby>一匹<rt>いっぴき</rt></ruby>とまっている。</p>
+        <p style="margin:0">　<ruby>何故<rt>なぜ</rt></ruby>ならば、この<ruby>二三年<rt>にさんねん</rt></ruby>、<ruby>京都<rt>きょうと</rt></ruby>には、<ruby>地震<rt>じしん</rt></ruby>とか<ruby>辻風<rt>つじかぜ</rt></ruby>とか<ruby>火事<rt>かじ</rt></ruby>とか<ruby>饑饉<rt>ききん</rt></ruby>とかいう<ruby>災<rt>わざわい</rt></ruby>が<ruby>続<rt>つづ</rt></ruby>いて<ruby>起<rt>おこ</rt></ruby>った。</p>
+      </div>
+      <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-top:1px solid var(--color-divider)">
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">128</span>
+        <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:34%;top:-3px;width:7px;height:7px;background:var(--color-accent);margin-left:-3px"></i></div>
+        <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">376</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+</body>
+</html>

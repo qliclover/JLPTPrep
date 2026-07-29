@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/classical-bdfb7c94-19c3-4610-a643-1e4b0b501ee0/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:var(--color-neutral-200); }
+  body { font-family:var(--font-body); -webkit-font-smoothing:antialiased; }
+  ruby { ruby-position:over; }
+  rt { font-size:.5em; font-weight:400; transition:opacity .3s ease; }
+  @keyframes rise { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:none } }
+  @keyframes popIn { from { opacity:0; transform:translateY(26px) } to { opacity:1; transform:none } }
+  @keyframes dotIn { from { opacity:0; transform:scale(.4) } to { opacity:1; transform:none } }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+</style>
+</helmet>
+
+<section style="padding:44px;display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start;--font-jp:'Noto Serif JP',serif">
+
+  <div style="display:flex;flex-direction:column;gap:var(--space-3);max-width:320px">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">Turn 3 · 可操作原型</div>
+    <h2 style="margin:0;font-weight:400;font-size:32px">动起来的那一版</h2>
+    <p style="margin:0;font-size:14px;line-height:1.9;color:var(--color-neutral-700)">右边这一屏是真的能点的。可以试：</p>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);font-size:13px;line-height:1.7;color:var(--color-neutral-700)">
+      <div>· 底部三个 Tab —— 金线会滑过去</div>
+      <div>· 「开始」进复习，「显示答案」翻面</div>
+      <div>· 四个评分键推进卡片，进度线跟着走</div>
+      <div>· 书架点书进阅读器，点正文里的词</div>
+      <div>· 设置里拖滑杆改额度，回首页数字会变</div>
+      <div>· 设置 → 等级词库：选备考目标 N5–N1，导入／停用词库包，首页队列和词库进度随之变化</div>
+      <div>· 关掉振假名，注音在两屏里一起淡出</div>
+      <div>· 阅读器右上「横／縦」实时换排版</div>
+    </div>
+    <p style="margin:0;font-size:12px;line-height:1.8;color:var(--color-neutral-500)">动效都很短（180–320ms）、只用透明度和位移，符合 Classical 的克制：没有弹跳，没有色块滑入。</p>
+  </div>
+
+  <div style="width:390px;height:844px;background:var(--color-bg);color:var(--color-text);border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-md);display:flex;flex-direction:column;position:relative">
+    <div style="height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 var(--space-4) var(--space-1);font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600);flex:none"><span>9:41</span><span>{{ statusRight }}</span></div>
+
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;opacity:{{ viewOpacity }};transition:opacity .18s ease">
+
+      <!-- ===== 学习 · 首页 ===== -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+            <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">日本語 · {{ goal }}</div>
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">{{ scopeLabel }}</div>
+          </div>
+          <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden">
+            <div class="card" style="gap:var(--space-3);padding:var(--space-4);animation:rise .3s ease both">
+              <div class="card-kicker">今日待办</div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between">
+                <div style="font-family:var(--font-heading);font-size:58px;font-weight:400;line-height:.9;font-feature-settings:'tnum'">{{ queueTotal }}</div>
+                <div style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum';padding-bottom:var(--space-1)">约 {{ estMinutes }} 分钟</div>
+              </div>
+              <div style="display:flex;border-top:1px solid var(--color-divider);margin-top:var(--space-1)">
+                <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)">
+                  <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum';color:var(--color-accent-700)">{{ countNew }}</span>
+                  <span style="font-size:11px;color:var(--color-neutral-600)">生词</span>
+                </div>
+                <div style="width:1px;background:var(--color-divider)"></div>
+                <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)">
+                  <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ countLearn }}</span>
+                  <span style="font-size:11px;color:var(--color-neutral-600)">巩固</span>
+                </div>
+                <div style="width:1px;background:var(--color-divider)"></div>
+                <div style="flex:1;padding:var(--space-3) 0 var(--space-3) var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)">
+                  <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ countReview }}</span>
+                  <span style="font-size:11px;color:var(--color-neutral-600)">复习</span>
+                </div>
+              </div>
+              <div class="btn btn-primary btn-block" onClick="{{ startStudy }}" style="justify-content:center;padding:13px 0;font-size:15px;cursor:pointer;opacity:{{ ctaOpacity }};transition:opacity .2s ease">{{ ctaLabel }}</div>
+            </div>
+
+            <div class="card" onClick="{{ openLastBook }}" style="gap:var(--space-2);padding:var(--space-4);cursor:pointer;animation:rise .3s ease .06s both">
+              <div style="display:flex;align-items:baseline;justify-content:space-between">
+                <div class="card-kicker">读到一半</div>
+                <div style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">{{ readPct }}%</div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between">
+                <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+                  <span style="font-family:var(--font-jp);font-size:22px;font-weight:500;letter-spacing:.04em">羅生門</span>
+                  <span style="font-family:var(--font-jp);font-size:12px;color:var(--color-neutral-600)">芥川龍之介 · 第 {{ readPara }} 段</span>
+                </div>
+                <div class="btn btn-secondary" style="padding:7px 14px;font-size:13px">续读</div>
+              </div>
+              <div style="height:1px;background:var(--color-divider);position:relative;margin-top:var(--space-2)"><i style="position:absolute;left:0;top:-1px;height:3px;background:var(--color-accent);width:{{ readWidth }};transition:width .4s ease"></i></div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);animation:rise .3s ease .12s both">
+              <div style="display:flex;align-items:baseline;justify-content:space-between">
+                <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">词库</span>
+                <span style="font-size:12px;color:var(--color-neutral-600);font-feature-settings:'tnum'">已接触 {{ touched }} / {{ corpusTotal }} · 未学 {{ unseen }}</span>
+              </div>
+              <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;background:var(--color-neutral-800);width:{{ touchedWidth }};transition:width .4s ease"></i></div>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
+              <span style="font-size:12px;color:var(--color-neutral-600);margin-right:var(--space-1)">连续 6 天</span>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .18s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .23s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .28s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .33s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .38s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-accent);background:var(--color-accent-200);animation:dotIn .28s ease .43s both"></i>
+              <i style="width:10px;height:10px;border:1px solid var(--color-divider);animation:dotIn .28s ease .48s both"></i>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 复习 ===== -->
+      <sc-if value="{{ isStudy }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;gap:var(--space-3);border-bottom:1px solid var(--color-divider)">
+            <span onClick="{{ endStudy }}" style="font-size:13px;color:var(--color-neutral-600);cursor:pointer">收工</span>
+            <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;background:var(--color-accent);width:{{ studyWidth }};transition:width .3s ease"></i></div>
+            <span style="font-size:12px;font-feature-settings:'tnum';color:var(--color-neutral-600)">{{ cardNo }} / {{ cardTotal }}</span>
+          </div>
+
+          <div style="flex:1;padding:var(--space-6) var(--space-4) 0;display:flex;flex-direction:column;gap:var(--space-4);overflow:hidden;opacity:{{ cardOpacity }};transform:translateY({{ cardShift }});transition:opacity .2s ease, transform .2s ease">
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
+              <span class="tag tag-outline">{{ stageLabel }}</span>
+              <span class="tag tag-accent">{{ cardLevel }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <div style="font-family:var(--font-jp);font-size:62px;font-weight:500;letter-spacing:.06em;line-height:1.1">{{ expr }}</div>
+              <div style="font-family:var(--font-jp);font-size:19px;letter-spacing:.14em;color:var(--color-neutral-600);opacity:{{ readingOpacity }};transition:opacity .25s ease">{{ reading }}</div>
+            </div>
+
+            <sc-if value="{{ revealed }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:var(--space-4);animation:rise .28s ease both">
+                <div style="width:48px;border-top:1px solid var(--color-accent)"></div>
+                <div style="display:flex;align-items:baseline;gap:var(--space-2);flex-wrap:wrap">
+                  <span style="font-family:var(--font-heading);font-size:28px;font-weight:600">{{ meaning }}</span>
+                  <span class="tag tag-neutral">{{ pos }}</span>
+                  <span class="tag tag-accent">{{ tag }}</span>
+                </div>
+                <div style="border-left:1px solid var(--color-accent);padding:var(--space-2) 0 var(--space-2) var(--space-4);display:flex;flex-direction:column;gap:var(--space-2)">
+                  <div style="font-family:var(--font-jp);font-size:20px;line-height:2.2">
+                    <sc-for list="{{ exSegs }}" as="seg" hint-placeholder-count="4"><ruby>{{ seg.b }}<rt style="opacity:{{ rtOpacity }}">{{ seg.r }}</rt></ruby></sc-for>
+                  </div>
+                  <div style="font-size:14px;color:var(--color-neutral-700)">{{ exZh }}</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ revealed }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider);animation:rise .24s ease both">
+              <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-neutral-500)"><span>下次到期</span><span>{{ hintText }}</span></div>
+              <div style="display:flex;gap:var(--space-2)">
+                <div class="btn btn-secondary" onClick="{{ rateAgain }}" style="flex:1;flex-direction:column;gap:2px;padding:11px 0;cursor:pointer"><span style="font-size:13px">忘了</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">{{ ivAgain }}</span></div>
+                <div class="btn btn-secondary" onClick="{{ rateHard }}" style="flex:1;flex-direction:column;gap:2px;padding:11px 0;cursor:pointer"><span style="font-size:13px">困难</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">{{ ivHard }}</span></div>
+                <div class="btn btn-primary" onClick="{{ rateGood }}" style="flex:1.3;flex-direction:column;gap:2px;padding:11px 0;cursor:pointer;background:var(--color-accent-100)"><span style="font-size:13px">记得</span><span style="font-size:11px;font-feature-settings:'tnum'">{{ ivGood }}</span></div>
+                <div class="btn btn-secondary" onClick="{{ rateEasy }}" style="flex:1;flex-direction:column;gap:2px;padding:11px 0;cursor:pointer"><span style="font-size:13px">简单</span><span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">{{ ivEasy }}</span></div>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ notRevealed }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:var(--space-3) var(--space-4) var(--space-6);border-top:1px solid var(--color-divider)">
+              <div class="btn btn-primary btn-block" onClick="{{ reveal }}" style="justify-content:center;padding:14px 0;font-size:15px;cursor:pointer">显示答案</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- ===== 复习完成 ===== -->
+      <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;padding:0 var(--space-6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);text-align:center;position:relative">
+          <div style="font-family:var(--font-heading);font-size:170px;font-weight:400;line-height:1;color:var(--color-accent-200);font-feature-settings:'tnum';position:absolute;top:130px;user-select:none;animation:fadeIn .6s ease both">{{ doneCount }}</div>
+          <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--space-3);animation:rise .34s ease both">
+            <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)">这一轮毕</div>
+            <div style="font-family:var(--font-heading);font-size:34px;font-weight:400">{{ doneCount }} 张，收工</div>
+            <div style="font-size:13px;color:var(--color-neutral-700);line-height:1.9">还有巩固中的卡没到点，<br>约 18 分钟后回来再看一眼。</div>
+          </div>
+          <div style="display:flex;width:100%;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);margin-top:var(--space-4);animation:rise .34s ease .08s both">
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ nGood }}</span><span style="font-size:11px;color:var(--color-neutral-600)">记得</span></div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ nHard }}</span><span style="font-size:11px;color:var(--color-neutral-600)">困难</span></div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum';color:var(--color-accent-700)">{{ nAgain }}</span><span style="font-size:11px;color:var(--color-neutral-600)">忘了</span></div>
+            <div style="width:1px;background:var(--color-divider)"></div>
+            <div style="flex:1;padding:var(--space-3) 0;display:flex;flex-direction:column;gap:var(--space-1)"><span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ nEasy }}</span><span style="font-size:11px;color:var(--color-neutral-600)">简单</span></div>
+          </div>
+          <div style="display:flex;gap:var(--space-2);width:100%;padding-top:var(--space-2);animation:rise .34s ease .14s both">
+            <div class="btn btn-secondary" onClick="{{ endStudy }}" style="flex:1;justify-content:center;padding:12px 0;cursor:pointer">回首页</div>
+            <div class="btn btn-primary" onClick="{{ openLastBook }}" style="flex:1;justify-content:center;padding:12px 0;cursor:pointer">去读羅生門</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 书架 ===== -->
+      <sc-if value="{{ isShelf }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+            <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">书架</div>
+            <div class="btn btn-primary" style="padding:5px 12px;font-size:13px;cursor:pointer">导入</div>
+          </div>
+          <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;overflow:auto">
+            <sc-for list="{{ books }}" as="b" hint-placeholder-count="6">
+              <div onClick="{{ b.open }}" style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3);cursor:pointer">
+                <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+                  <span style="font-family:var(--font-jp);font-size:18px;font-weight:500;letter-spacing:.03em">{{ b.title }}</span>
+                  <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">{{ b.meta }}</span>
+                </div>
+                <span style="font-size:12px;color:var(--color-neutral-500);font-feature-settings:'tnum'">{{ b.state }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 阅读器 ===== -->
+      <sc-if value="{{ isReader }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+            <span onClick="{{ closeBook }}" style="font-size:13px;color:var(--color-neutral-600);cursor:pointer">← 书架</span>
+            <span class="seg" style="font-family:var(--font-heading);font-size:14px">
+              <span class="seg-opt" onClick="{{ setHorizontal }}" style="padding:5px 14px;cursor:pointer;color:{{ hColor }};box-shadow:{{ hRing }}">横</span>
+              <span class="seg-opt" onClick="{{ setVertical }}" style="padding:5px 14px;cursor:pointer;color:{{ vColor }};box-shadow:{{ vRing }}">縦</span>
+            </span>
+            <span onClick="{{ toggleFurigana }}" style="font-family:var(--font-heading);font-size:16px;color:var(--color-accent);cursor:pointer">{{ rubyLabel }}</span>
+          </div>
+
+          <div style="flex:1;overflow:auto;padding:var(--space-4);display:flex;justify-content:{{ readerAlign }}">
+            <div style="font-family:var(--font-jp);font-size:19px;line-height:2.2;letter-spacing:.03em;writing-mode:{{ writingMode }};height:{{ colHeight }};max-width:100%">
+              <sc-for list="{{ paragraphs }}" as="p" hint-placeholder-count="2">
+                <p style="margin:0 0 var(--space-4) var(--space-4);text-align:justify">
+                  <sc-for list="{{ p.words }}" as="w" hint-placeholder-count="12"><span onClick="{{ w.tap }}" style="cursor:pointer;border-bottom:{{ w.underline }};padding-bottom:1px"><ruby>{{ w.s }}<rt style="opacity:{{ rtOpacity }}">{{ w.r }}</rt></ruby></span></sc-for>
+                </p>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:var(--space-3) var(--space-4) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-top:1px solid var(--color-divider)">
+            <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">128</span>
+            <div style="flex:1;height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:34%;top:-3px;width:7px;height:7px;background:var(--color-accent);margin-left:-3px"></i></div>
+            <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">376</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 设置 ===== -->
+      <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider)">
+            <div style="font-family:var(--font-heading);font-size:26px;font-weight:400">设置</div>
+          </div>
+          <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-6);overflow:auto">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">每日额度</div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font-size:15px">新词上限</span><span style="font-family:var(--font-heading);font-size:26px;font-feature-settings:'tnum'">{{ newLimit }}</span></div>
+              <div onClick="{{ setNewLimit }}" style="height:22px;display:flex;align-items:center;cursor:pointer">
+                <div style="height:1px;background:var(--color-divider);position:relative;width:100%">
+                  <i style="position:absolute;left:0;top:-1px;height:3px;background:var(--color-accent);width:{{ newWidth }};transition:width .18s ease"></i>
+                  <i style="position:absolute;top:-5px;width:11px;height:11px;border-radius:50%;background:var(--color-bg);border:1px solid var(--color-accent);margin-left:-5px;left:{{ newWidth }};transition:left .18s ease"></i>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'"><span>0</span><span>点击轨道即可调整</span><span>60</span></div>
+
+              <div style="display:flex;align-items:baseline;justify-content:space-between;padding-top:var(--space-2)"><span style="font-size:15px">复习上限</span><span style="font-family:var(--font-heading);font-size:26px;font-feature-settings:'tnum'">{{ reviewLimit }}</span></div>
+              <div onClick="{{ setReviewLimit }}" style="height:22px;display:flex;align-items:center;cursor:pointer">
+                <div style="height:1px;background:var(--color-divider);position:relative;width:100%">
+                  <i style="position:absolute;left:0;top:-1px;height:3px;background:var(--color-accent);width:{{ reviewWidth }};transition:width .18s ease"></i>
+                  <i style="position:absolute;top:-5px;width:11px;height:11px;border-radius:50%;background:var(--color-bg);border:1px solid var(--color-accent);margin-left:-5px;left:{{ reviewWidth }};transition:left .18s ease"></i>
+                </div>
+              </div>
+              <div style="font-size:12px;color:var(--color-neutral-600);line-height:1.8">新词上限决定每天引进多少生面孔；复习上限是断更之后的护栏，免得回来时被两百多张卡按住。</div>
+            </div>
+
+            <div style="display:flex;flex-direction:column">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding-bottom:var(--space-3)">阅读</div>
+              <div onClick="{{ toggleFurigana }}" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider);cursor:pointer">
+                <span style="font-size:15px">显示振假名</span>
+                <span style="width:44px;height:24px;border-radius:100px;border:1px solid {{ furiBorder }};background:{{ furiBg }};display:flex;align-items:center;padding:2px;box-sizing:border-box;transition:background .2s ease, border-color .2s ease"><i style="display:block;width:18px;height:18px;border-radius:50%;background:{{ furiKnob }};transform:translateX({{ furiX }});transition:transform .2s ease, background .2s ease"></i></span>
+              </div>
+              <div onClick="{{ toggleVertical }}" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);cursor:pointer">
+                <span style="font-size:15px">默认竖排</span>
+                <span style="width:44px;height:24px;border-radius:100px;border:1px solid {{ vertBorder }};background:{{ vertBg }};display:flex;align-items:center;padding:2px;box-sizing:border-box;transition:background .2s ease, border-color .2s ease"><i style="display:block;width:18px;height:18px;border-radius:50%;background:{{ vertKnob }};transform:translateX({{ vertX }});transition:transform .2s ease, background .2s ease"></i></span>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">词库</div>
+              <div onClick="{{ openPacks }}" style="display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);cursor:pointer">
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font-size:15px">等级词库 · N5–N1</span>
+                  <span style="font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'">目标 {{ goal }} · 已启用 {{ activeLabel }} · {{ totalWords }} 词</span>
+                </div>
+                <span style="font-size:15px;color:var(--color-accent)">›</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--color-neutral-700)"><span>JMdict 词典</span><span style="font-feature-settings:'tnum';color:var(--color-accent-700)">已安装 · 208,431 条</span></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ===== 词库 · N5–N1 ===== -->
+      <sc-if value="{{ isPacks }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div style="padding:var(--space-2) var(--space-4) var(--space-3);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+            <span onClick="{{ closePacks }}" style="font-size:13px;color:var(--color-neutral-600);cursor:pointer">← 设置</span>
+            <span style="font-family:var(--font-heading);font-size:19px">等级词库</span>
+            <span style="width:44px"></span>
+          </div>
+
+          <div style="flex:1;padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4);overflow:auto">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">备考目标</div>
+              <span class="seg" style="font-family:var(--font-heading);font-size:15px;align-self:stretch">
+                <sc-for list="{{ levelChips }}" as="c" hint-placeholder-count="5"><span class="seg-opt" onClick="{{ c.pick }}" style="flex:1;justify-content:center;padding:8px 0;cursor:pointer;color:{{ c.color }};box-shadow:{{ c.ring }}">{{ c.label }}</span></sc-for>
+              </span>
+              <div style="font-size:12px;color:var(--color-neutral-600);line-height:1.8">考 {{ goal }} 要连下面的等级一起背，所以范围是 <span style="color:var(--color-accent-700)">{{ scopeLabel }}</span>。超出范围的包不会进今天的队列。</div>
+            </div>
+
+            <div style="display:flex;flex-direction:column">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent);padding-bottom:var(--space-2)">词库包</div>
+              <sc-for list="{{ packRows }}" as="p" hint-placeholder-count="5">
+                <div style="padding:var(--space-3) 0;border-top:1px solid var(--color-divider);display:flex;flex-direction:column;gap:var(--space-2);opacity:{{ p.nameOpacity }};transition:opacity .2s ease">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)">
+                    <div style="display:flex;align-items:baseline;gap:var(--space-2)">
+                      <span style="font-family:var(--font-heading);font-size:22px;font-feature-settings:'tnum'">{{ p.level }}</span>
+                      <span style="font-size:13px;color:var(--color-neutral-700)">{{ p.name }}</span>
+                      <span style="font-size:11px;color:var(--color-neutral-500);font-feature-settings:'tnum'">{{ p.count }}</span>
+                    </div>
+                    <div class="btn btn-secondary" onClick="{{ p.act }}" style="padding:5px 12px;font-size:12px;cursor:pointer;color:{{ p.actionColor }}">{{ p.actionLabel }}</div>
+                  </div>
+                  <div style="height:1px;background:var(--color-divider);position:relative"><i style="position:absolute;left:0;top:-1px;height:3px;background:{{ p.barColor }};width:{{ p.barWidth }};transition:width .2s linear"></i></div>
+                  <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--color-neutral-600);font-feature-settings:'tnum'"><span style="color:{{ p.statusColor }}">{{ p.status }}</span><span>{{ p.scopeNote }}</span></div>
+                </div>
+              </sc-for>
+              <div style="border-top:1px solid var(--color-divider)"></div>
+            </div>
+
+            <sc-if value="{{ hasReport }}" hint-placeholder-val="{{ false }}">
+              <div class="card" style="border-color:var(--color-accent);padding:var(--space-3);gap:var(--space-1);animation:rise .3s ease both">
+                <div style="font-size:13px;line-height:1.8;font-feature-settings:'tnum'">{{ reportText }}</div>
+                <div style="font-size:11px;color:var(--color-neutral-600);line-height:1.7">导入只写内容表，不动已有进度；同一个包再导一次是空操作。</div>
+              </div>
+            </sc-if>
+
+            <div style="font-size:11px;color:var(--color-neutral-500);line-height:1.9">已启用 {{ activeCount }} 个包，共 {{ totalWords }} 词。停用某个包只是把它从队列里摘掉，进度会留着。</div>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- ===== 点词浮层 ===== -->
+    <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:color-mix(in srgb, var(--color-neutral-900) 34%, transparent);display:flex;flex-direction:column;justify-content:flex-end;animation:fadeIn .18s ease both">
+        <div onClick="{{ closeSel }}" style="flex:1;cursor:pointer"></div>
+        <div style="background:var(--color-bg);border-radius:var(--radius-lg) var(--radius-lg) 0 0;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;animation:popIn .26s ease both">
+          <div style="padding:var(--space-3) 0 0;display:flex;justify-content:center"><i style="width:36px;height:1px;background:var(--color-neutral-400)"></i></div>
+          <div style="padding:var(--space-4) var(--space-4) var(--space-3);display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--color-divider)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+              <div style="font-family:var(--font-jp);font-size:38px;font-weight:500;letter-spacing:.05em;line-height:1.2">{{ selSurface }}</div>
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">羅生門 · 第 128 段</div>
+            </div>
+            <div class="btn btn-secondary" onClick="{{ toggleStar }}" style="padding:6px 12px;font-size:13px;cursor:pointer;color:{{ starColor }};border-color:{{ starColor }}">{{ starLabel }}</div>
+          </div>
+          <div style="padding:var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">词形还原</div>
+              <div style="display:flex;align-items:center;gap:var(--space-3)">
+                <span style="font-family:var(--font-jp);font-size:26px;font-weight:500;letter-spacing:.04em">{{ selForm }}</span>
+                <span class="tag tag-outline">{{ selClass }}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-2);font-size:13px;color:var(--color-neutral-700)">
+                <span style="font-family:var(--font-jp)">{{ selSurface }}</span>
+                <span style="color:var(--color-neutral-500)">←</span>
+                <span class="tag tag-neutral">{{ selSteps }}</span>
+                <span style="color:var(--color-neutral-500)">←</span>
+                <span style="font-family:var(--font-jp)">{{ selForm }}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);border-top:1px solid var(--color-divider);padding-top:var(--space-4)">
+              <div style="display:flex;align-items:baseline;justify-content:space-between">
+                <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent)">释义</span>
+                <span style="font-size:11px;letter-spacing:.08em;color:var(--color-neutral-500)">{{ selSource }}</span>
+              </div>
+              <div style="font-size:15px;line-height:1.8">{{ selGloss }}</div>
+            </div>
+          </div>
+          <div style="padding:var(--space-2) var(--space-4) var(--space-6);display:flex;gap:var(--space-2);border-top:1px solid var(--color-divider)">
+            <div class="btn btn-secondary" onClick="{{ closeSel }}" style="flex:1;justify-content:center;padding:12px 0;cursor:pointer">关掉</div>
+            <div class="btn btn-primary" onClick="{{ addToDeck }}" style="flex:1.2;justify-content:center;padding:12px 0;cursor:pointer">{{ addLabel }}</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===== 底部导航 ===== -->
+    <div style="height:74px;border-top:1px solid var(--color-divider);display:flex;padding-bottom:14px;position:relative;flex:none">
+      <i style="position:absolute;top:-1px;height:2px;background:var(--color-accent);width:33.33%;left:{{ tabLeft }};transition:left .26s ease"></i>
+      <div onClick="{{ goStudy }}" style="flex:1;display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ studyColor }};transition:color .2s ease"><span style="font-family:var(--font-heading);font-size:16px">学习</span></div>
+      <div onClick="{{ goShelf }}" style="flex:1;display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ shelfColor }};transition:color .2s ease"><span style="font-family:var(--font-heading);font-size:16px">书架</span></div>
+      <div onClick="{{ goSettings }}" style="flex:1;display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{ settingsColor }};transition:color .2s ease"><span style="font-family:var(--font-heading);font-size:16px">设置</span></div>
+    </div>
+  </div>
+
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:980}}">
+// 等级包。N5 的 8 条来自仓库的 vocab_n5_sample.json；N4 以上是同格式的示例条目，
+// 用来演示多等级队列，真包由 ContentImporter 灌入。
+const PACKS = [
+  { level:'N5', name:'基础', count:800,   imported:true,  on:true,  prog:0.38 },
+  { level:'N4', name:'初级', count:1500,  imported:false, on:false, prog:0 },
+  { level:'N3', name:'中级', count:3700,  imported:false, on:false, prog:0 },
+  { level:'N2', name:'中高级', count:6000, imported:false, on:false, prog:0 },
+  { level:'N1', name:'高级', count:10000, imported:false, on:false, prog:0 }
+];
+
+const EXTRA = [
+  { level:'N4', expr:'練習', reading:'れんしゅう', meaning:'练习', pos:'名词 · する动词', tag:'学习', stage:'初见',
+    zh:'每天练习三十分钟。', iv:['1分','6分','10分','4天'],
+    segs:[['毎日','まいにち'],['三十分','さんじゅっぷん'],['練習','れんしゅう'],['します。',''] ] },
+  { level:'N4', expr:'説明', reading:'せつめい', meaning:'说明，解释', pos:'名词 · する动词', tag:'表达', stage:'巩固中',
+    zh:'请再说明一次。', iv:['1分','6分','10分','2天'],
+    segs:[['もう','' ],['一度','いちど'],['説明','せつめい'],['してください。',''] ] },
+  { level:'N3', expr:'提出', reading:'ていしゅつ', meaning:'提交，交上去', pos:'名词 · する动词', tag:'事务', stage:'初见',
+    zh:'报告在星期五之前提交。', iv:['1分','6分','10分','4天'],
+    segs:[['レポートは',''],['金曜日','きんようび'],['までに',''],['提出','ていしゅつ'],['します。',''] ] },
+  { level:'N3', expr:'我慢', reading:'がまん', meaning:'忍耐，忍住', pos:'名词 · する动词', tag:'心理', stage:'复习 · 第 2 次',
+    zh:'再忍一会儿吧。', iv:['1分','2天','6天','11天'],
+    segs:[['もう','' ],['少','すこ'],['し',''],['我慢','がまん'],['しよう。',''] ] },
+  { level:'N2', expr:'傾向', reading:'けいこう', meaning:'倾向，趋势', pos:'名词', tag:'论述', stage:'初见',
+    zh:'最近有价格上涨的趋势。', iv:['1分','6分','10分','4天'],
+    segs:[['最近','さいきん'],['、',''],['値段','ねだん'],['が',''],['上','あ'],['がる',''],['傾向','けいこう'],['がある。',''] ] },
+  { level:'N2', expr:'曖昧', reading:'あいまい', meaning:'含糊，不明确', pos:'な形容词', tag:'论述', stage:'巩固中',
+    zh:'他的回答很含糊。', iv:['1分','6分','10分','2天'],
+    segs:[['彼','かれ'],['の',''],['返事','へんじ'],['は',''],['曖昧','あいまい'],['だった。',''] ] },
+  { level:'N1', expr:'顕著', reading:'けんちょ', meaning:'显著，明显', pos:'な形容词', tag:'论述', stage:'初见',
+    zh:'效果十分显著。', iv:['1分','6分','10分','4天'],
+    segs:[['効果','こうか'],['は',''],['極','きわ'],['めて',''],['顕著','けんちょ'],['である。',''] ] },
+  { level:'N1', expr:'逸脱', reading:'いつだつ', meaning:'脱离，偏离', pos:'名词 · する动词', tag:'论述', stage:'复习 · 第 4 次',
+    zh:'议论偏离了主题。', iv:['1分','4天','12天','21天'],
+    segs:[['議論','ぎろん'],['が',''],['本題','ほんだい'],['から',''],['逸脱','いつだつ'],['した。',''] ] }
+];
+
+const CARDS = [
+  { level:'N5', expr:'電車', reading:'でんしゃ', meaning:'电车', pos:'名词', tag:'交通', stage:'初见',
+    zh:'坐电车去公司。', iv:['1分','6分','10分','4天'],
+    segs:[['電車','でんしゃ'],['で',''],['会社','かいしゃ'],['へ',''],['行','い'],['きます。',''] ] },
+  { level:'N5', expr:'会社', reading:'かいしゃ', meaning:'公司', pos:'名词', tag:'场所', stage:'复习 · 第 3 次',
+    zh:'我父亲的公司在东京。', iv:['1分','3天','8天','14天'],
+    segs:[['父','ちち'],['の',''],['会社','かいしゃ'],['は',''],['東京','とうきょう'],['にあります。',''] ] },
+  { level:'N5', expr:'部屋', reading:'へや', meaning:'房间', pos:'名词', tag:'场所', stage:'巩固中',
+    zh:'星期六打扫房间。', iv:['1分','6分','10分','2天'],
+    segs:[['土曜日','どようび'],['に',''],['部屋','へや'],['を',''],['掃除','そうじ'],['します。',''] ] },
+  { level:'N5', expr:'天気', reading:'てんき', meaning:'天气', pos:'名词', tag:'日常', stage:'初见',
+    zh:'今天天气真好啊。', iv:['1分','6分','10分','4天'],
+    segs:[['今日','きょう'],['はいい',''],['天気','てんき'],['ですね。',''] ] },
+  { level:'N5', expr:'水', reading:'みず', meaning:'水（指凉水，热水是「お湯」）', pos:'名词', tag:'饮食', stage:'复习 · 第 5 次',
+    zh:'请给我一杯水。', iv:['1分','5天','16天','28天'],
+    segs:[['水','みず'],['を',''],['一杯','いっぱい'],['ください。',''] ] },
+  { level:'N5', expr:'魚', reading:'さかな', meaning:'鱼', pos:'名词', tag:'饮食', stage:'巩固中',
+    zh:'我喜欢吃鱼。', iv:['1分','6分','10分','2天'],
+    segs:[['私','わたし'],['は',''],['魚','さかな'],['が',''],['好','す'],['きです。',''] ] },
+  { level:'N5', expr:'学校', reading:'がっこう', meaning:'学校', pos:'名词', tag:'场所', stage:'初见',
+    zh:'我每天去学校。', iv:['1分','6分','10分','4天'],
+    segs:[['私','わたし'],['は',''],['毎日','まいにち'],['学校','がっこう'],['へ',''],['行','い'],['きます。',''] ] },
+  { level:'N5', expr:'先生', reading:'せんせい', meaning:'老师；医生（对特定职业的敬称）', pos:'名词', tag:'人物', stage:'复习 · 第 2 次',
+    zh:'田中老师是日语老师。', iv:['1分','2天','6天','11天'],
+    segs:[['田中','たなか'],['先生','せんせい'],['は',''],['日本語','にほんご'],['の',''],['先生','せんせい'],['です。',''] ] }
+];
+
+const BOOKS = [
+  { title:'羅生門', meta:'芥川龍之介 · 10,318 字 · 原文注音', state:'34%' },
+  { title:'蜘蛛の糸', meta:'芥川龍之介 · 5,140 字 · 原文注音', state:'未读' },
+  { title:'走れメロス', meta:'太宰治 · 15,702 字 · 原文注音', state:'12%' },
+  { title:'セロ弾きのゴーシュ', meta:'宮沢賢治 · 11,845 字 · 原文注音', state:'未读' },
+  { title:'ごん狐', meta:'新美南吉 · 7,364 字 · 原文注音', state:'未读' },
+  { title:'杜子春', meta:'芥川龍之介 · 9,902 字 · 原文注音', state:'读完' }
+];
+
+// 每个词条：表面形、注音、还原形、词类、变形说明、释义
+const P1 = [
+  ['或日','あるひ','或日','名词','原形','某日 / one day'],
+  ['の','','の','助词','原形','的'],
+  ['暮方','くれがた','暮方','名词','原形','傍晚 / nightfall'],
+  ['の','','の','助词','原形','的'],
+  ['事','こと','事','名词','原形','事情 / thing, matter'],
+  ['である。','','だ','助动词','连用 · 断定','是（书面体）'],
+  ['一人','ひとり','一人','名词','原形','一个人 / one person'],
+  ['の','','の','助词','原形','的'],
+  ['下人','げにん','下人','名词','原形','仆役 / servant, menial'],
+  ['が、','','が','助词','原形','（主格）'],
+  ['羅生門','らしょうもん','羅生門','专有名词','原形','罗生门（京都朱雀大路南端的城门）'],
+  ['の','','の','助词','原形','的'],
+  ['下','した','下','名词','原形','下面 / below, under'],
+  ['で','','で','助词','原形','在'],
+  ['雨','あま','雨','名词','原形','雨 / rain'],
+  ['やみを','','やむ','动词 · 一类','连用形','停歇 / to cease, to stop'],
+  ['待って','','待つ','动词 · 一类','て形','等 / to wait; to await; to look forward to'],
+  ['いた。','','いる','动词 · 二类','た形 · 过去','在 / to be, to exist']
+];
+
+const P2 = [
+  ['広','ひろ','広い','い形容词','语干','宽 / wide, broad'],
+  ['い','','広い','い形容词','原形','宽 / wide'],
+  ['門','もん','門','名词','原形','门 / gate'],
+  ['の','','の','助词','原形','的'],
+  ['下','した','下','名词','原形','下面 / below'],
+  ['には、','','に','助词','原形','（在…）'],
+  ['この','','この','连体词','原形','这个'],
+  ['男','おとこ','男','名词','原形','男人 / man'],
+  ['のほかに','','ほか','名词','原形','以外 / other than'],
+  ['誰','だれ','誰','代词','原形','谁 / who'],
+  ['もいない。','','いる','动词 · 二类','否定','不在 / to not be (negative of いる)'],
+  ['ただ、','','ただ','副词','原形','只是 / only, merely'],
+  ['所々','ところどころ','所々','名词','原形','处处 / here and there'],
+  ['丹塗','にぬり','丹塗','名词','原形','朱漆 / red lacquering'],
+  ['の','','の','助词','原形','的'],
+  ['剥','は','剥げる','动词 · 二类','语干','剥落 / to peel off'],
+  ['げた、','','剥げる','动词 · 二类','た形 · 过去','剥落了'],
+  ['大','おお','大きな','连体词','语干','大 / big'],
+  ['きな','','大きな','连体词','原形','大的'],
+  ['円柱','まるばしら','円柱','名词','原形','圆柱 / round pillar'],
+  ['に、','','に','助词','原形','（在…上）'],
+  ['蟋蟀','きりぎりす','蟋蟀','名词','原形','蟋蟀 / cricket'],
+  ['が','','が','助词','原形','（主格）'],
+  ['一匹','いっぴき','一匹','名词','原形','一只 / one (small animal)'],
+  ['とまっている。','','とまる','动词 · 一类','て形 · 持续','停着 / to perch, to alight']
+];
+
+class Component extends DCLogic {
+  state = {
+    tab:'study', mode:'home',
+    idx:0, revealed:false,
+    ratings:{ again:0, hard:0, good:0, easy:0 },
+    furigana:true, vertical:false,
+    newLimit:15, reviewLimit:200,
+    cardIn:true, viewShown:true,
+    sel:null, starred:false, added:false,
+    doneCount:0,
+    goal:'N5', packs:PACKS.map(p => Object.assign({}, p)),
+    importing:null, importPct:0, report:null
+  };
+
+  static LEVELS = ['N5','N4','N3','N2','N1'];
+
+  scope() {
+    const i = Component.LEVELS.indexOf(this.state.goal);
+    return Component.LEVELS.slice(0, i + 1);
+  }
+
+  activeLevels() {
+    const sc = this.scope();
+    return this.state.packs.filter(p => p.imported && p.on && sc.indexOf(p.level) > -1).map(p => p.level);
+  }
+
+  // 导入：进度跑完后给出 ImportReport 那几个数字（只写内容表，不动进度）
+  runImport(level) {
+    if (this.state.importing) return;
+    this.setState({ importing:level, importPct:0, report:null });
+    clearInterval(this._imp);
+    this._imp = setInterval(() => {
+      const next = this.state.importPct + 7;
+      if (next >= 100) {
+        clearInterval(this._imp);
+        const packs = this.state.packs.map(p => p.level === level ? Object.assign({}, p, { imported:true, on:true }) : p);
+        const pack = PACKS.filter(p => p.level === level)[0];
+        this.setState({
+          importing:null, importPct:0, packs:packs,
+          report:{ level:level, inserted:pack.count, updated:0, skipped:0 }
+        });
+      } else {
+        this.setState({ importPct:next });
+      }
+    }, 60);
+  }
+
+  componentWillUnmount() { clearTimeout(this._t1); clearTimeout(this._t2); clearInterval(this._ci); }
+
+  // ——— 视图切换：先淡出再换，避免硬切 ———
+  switchTo(patch) {
+    this.setState({ viewShown:false });
+    clearTimeout(this._t1);
+    this._t1 = setTimeout(() => this.setState(Object.assign({ viewShown:true }, patch)), 150);
+  }
+
+  countUp(target) {
+    clearInterval(this._ci);
+    this.setState({ doneCount:0 });
+    let n = 0;
+    this._ci = setInterval(() => {
+      n += 1;
+      if (n >= target) { clearInterval(this._ci); this.setState({ doneCount:target }); }
+      else this.setState({ doneCount:n });
+    }, 40);
+  }
+
+  // 样本卡组按 stage 分三段，两个上限真的会裁剪队列
+  deck() {
+    const s = this.state;
+    const active = this.activeLevels();
+    const pool = CARDS.concat(EXTRA).filter(c => active.indexOf(c.level) > -1);
+    const isNew = (c) => c.stage === '初见';
+    const isLearn = (c) => c.stage === '巩固中';
+    const isReview = (c) => c.stage.indexOf('复习') === 0;
+    return pool.filter(isNew).slice(0, s.newLimit)
+      .concat(pool.filter(isLearn))
+      .concat(pool.filter(isReview).slice(0, s.reviewLimit));
+  }
+
+  total() { return Math.max(1, this.deck().length); }
+
+  rate(kind) {
+    const r = Object.assign({}, this.state.ratings);
+    r[kind] += 1;
+    const next = this.state.idx + 1;
+    // 卡片先滑出，再换内容滑入
+    this.setState({ cardIn:false, revealed:false, ratings:r });
+    clearTimeout(this._t2);
+    this._t2 = setTimeout(() => {
+      if (next >= this.total()) {
+        const done = r.again + r.hard + r.good + r.easy;
+        this.setState({ mode:'done', cardIn:true });
+        this.countUp(done);
+      } else {
+        this.setState({ idx:next, cardIn:true });
+      }
+    }, 200);
+  }
+
+  pickFromRail(e, max, min, step) {
+    const box = e.currentTarget.getBoundingClientRect();
+    const pct = Math.min(1, Math.max(0, (e.clientX - box.left) / box.width));
+    return Math.max(min, Math.round((min + pct * (max - min)) / step) * step);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const deck = this.deck();
+    const card = deck[Math.min(s.idx, deck.length - 1)] || CARDS[0];
+    const total = Math.max(1, deck.length);
+    const countNew = deck.filter(c => c.stage === '初见').length;
+    const countLearn = deck.filter(c => c.stage === '巩固中').length;
+    const countReview = deck.filter(c => c.stage.indexOf('复习') === 0).length;
+    const queueTotal = deck.length;
+    const answered = s.ratings.again + s.ratings.hard + s.ratings.good + s.ratings.easy;
+    const livePacks = s.packs.filter(p => p.imported && p.on);
+    const corpusTotal = livePacks.reduce((n, p) => n + p.count, 0);
+    const touched = Math.round(livePacks.reduce((n, p) => n + p.count * p.prog, 0));
+    const isReader = s.mode === 'reader';
+    const tabIndex = s.tab === 'study' ? 0 : (s.tab === 'shelf' ? 1 : 2);
+    const dim = 'var(--color-neutral-600)';
+    const on = 'var(--color-accent-700)';
+
+    const mkWords = (rows) => rows.map((w, i) => ({
+      s:w[0], r:s.furigana ? w[1] : '',
+      underline: (s.sel && s.sel.key === w[0] + i) ? '2px solid var(--color-accent)' : '2px solid transparent',
+      tap: () => this.setState({ sel:{ key:w[0] + i, surface:w[0], form:w[2], cls:w[3], steps:w[4], gloss:w[5] }, starred:false, added:false })
+    }));
+
+    return {
+      statusRight: isReader ? '34%' : (s.mode === 'study' ? (s.idx + 1) + ' / ' + total : '第 42 天'),
+      viewOpacity: s.viewShown ? 1 : 0,
+
+      isHome: s.tab === 'study' && s.mode === 'home',
+      isStudy: s.tab === 'study' && s.mode === 'study',
+      isDone: s.tab === 'study' && s.mode === 'done',
+      isShelf: s.tab === 'shelf' && !isReader,
+      isReader: isReader,
+      isSettings: s.tab === 'settings' && s.mode !== 'packs',
+      isPacks: s.tab === 'settings' && s.mode === 'packs',
+
+      goal: s.goal,
+      scopeLabel: this.scope().length > 1 ? '含 ' + this.scope().join(' · ') : '仅 N5',
+      levelChips: Component.LEVELS.map(l => ({
+        label: l,
+        color: l === s.goal ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+        ring: l === s.goal ? 'inset 0 0 0 1px var(--color-accent)' : 'none',
+        pick: () => this.setState({ goal:l, idx:0, revealed:false })
+      })),
+      packRows: s.packs.map(p => {
+        const inScope = this.scope().indexOf(p.level) > -1;
+        const busy = s.importing === p.level;
+        return {
+          level: p.level, name: p.name,
+          count: p.count.toLocaleString('en-US') + ' 词',
+          scopeNote: inScope ? '在备考范围内' : '超出当前目标',
+          nameOpacity: inScope ? 1 : 0.45,
+          status: busy ? ('导入中 · ' + s.importPct + '%') : (p.imported ? (p.on ? '已启用' : '已导入 · 未启用') : '未导入'),
+          statusColor: p.imported && p.on ? 'var(--color-accent-700)' : 'var(--color-neutral-600)',
+          barWidth: busy ? (s.importPct + '%') : (p.imported ? Math.round(p.prog * 100) + '%' : '0%'),
+          barColor: busy ? 'var(--color-accent)' : (p.on ? 'var(--color-accent)' : 'var(--color-neutral-400)'),
+          actionLabel: p.imported ? (p.on ? '停用' : '启用') : (busy ? '…' : '导入'),
+          actionColor: p.imported ? 'var(--color-neutral-600)' : 'var(--color-accent)',
+          act: () => {
+            if (!p.imported) { this.runImport(p.level); return; }
+            this.setState({ packs: s.packs.map(q => q.level === p.level ? Object.assign({}, q, { on:!q.on }) : q), idx:0, revealed:false });
+          }
+        };
+      }),
+      hasReport: !!s.report,
+      reportText: s.report ? (s.report.level + ' 词库导入完成 · 新增 ' + s.report.inserted.toLocaleString('en-US') + ' · 更新 ' + s.report.updated + ' · 跳过 ' + s.report.skipped) : '',
+      openPacks: () => this.switchTo({ mode:'packs' }),
+      closePacks: () => this.switchTo({ mode:'settings', report:null }),
+      activeCount: this.activeLevels().length,
+      activeLabel: this.activeLevels().length ? this.activeLevels().join(' · ') : '无',
+      totalWords: s.packs.filter(p => p.imported && p.on).reduce((n, p) => n + p.count, 0).toLocaleString('en-US'),
+
+      queueTotal: queueTotal,
+      estMinutes: Math.max(1, Math.round(queueTotal * 0.5)),
+      countNew: countNew, countLearn: countLearn, countReview: countReview,
+      corpusTotal: corpusTotal.toLocaleString('en-US'),
+      touched: touched.toLocaleString('en-US'),
+      touchedWidth: (corpusTotal ? Math.round((touched / corpusTotal) * 100) : 0) + '%',
+      readPct: 34, readPara: 128, readWidth: '34%',
+      unseen: (corpusTotal - touched).toLocaleString('en-US'),
+
+      ctaLabel: queueTotal ? ('开始 · ' + queueTotal + ' 张') : '没有可学的卡 —— 去词库启用一个包',
+      ctaOpacity: queueTotal ? 1 : 0.45,
+      startStudy: () => { if (queueTotal) this.switchTo({ mode:'study', idx:0, revealed:false, ratings:{ again:0,hard:0,good:0,easy:0 } }); else this.switchTo({ tab:'settings', mode:'packs' }); },
+      endStudy: () => this.switchTo({ mode:'home', idx:0, revealed:false }),
+      openLastBook: () => this.switchTo({ tab:'shelf', mode:'reader' }),
+      closeBook: () => this.switchTo({ mode:'home' }),
+
+      cardNo: Math.min(s.idx + 1, total), cardTotal: total,
+      studyWidth: Math.round((s.idx / total) * 100) + '%',
+      cardOpacity: s.cardIn ? 1 : 0,
+      cardShift: s.cardIn ? '0px' : '14px',
+      stageLabel: card.stage,
+      expr: card.expr, reading: card.reading, cardLevel: card.level,
+      readingOpacity: s.revealed ? 1 : 0,
+      meaning: card.meaning, pos: card.pos, tag: card.tag,
+      exZh: card.zh,
+      exSegs: card.segs.map(x => ({ b:x[0], r:s.furigana ? x[1] : '' })),
+      revealed: s.revealed, notRevealed: !s.revealed,
+      reveal: () => this.setState({ revealed:true }),
+      hintText: '共 ' + total + ' 张',
+      ivAgain: card.iv[0], ivHard: card.iv[1], ivGood: card.iv[2], ivEasy: card.iv[3],
+      rateAgain: () => this.rate('again'),
+      rateHard: () => this.rate('hard'),
+      rateGood: () => this.rate('good'),
+      rateEasy: () => this.rate('easy'),
+
+      doneCount: s.doneCount,
+      nAgain: s.ratings.again, nHard: s.ratings.hard, nGood: s.ratings.good, nEasy: s.ratings.easy,
+
+      books: BOOKS.map((b, i) => ({ title:b.title, meta:b.meta, state:b.state, open: () => this.switchTo({ mode:'reader' }) })),
+
+      paragraphs: [{ words: mkWords(P1) }, { words: mkWords(P2) }],
+      writingMode: s.vertical ? 'vertical-rl' : 'horizontal-tb',
+      colHeight: s.vertical ? '560px' : 'auto',
+      readerAlign: s.vertical ? 'flex-end' : 'flex-start',
+      setHorizontal: () => this.setState({ vertical:false }),
+      setVertical: () => this.setState({ vertical:true }),
+      hColor: s.vertical ? dim : 'var(--color-accent)',
+      vColor: s.vertical ? 'var(--color-accent)' : dim,
+      hRing: s.vertical ? 'none' : 'inset 0 0 0 1px var(--color-accent)',
+      vRing: s.vertical ? 'inset 0 0 0 1px var(--color-accent)' : 'none',
+      rubyLabel: s.furigana ? 'ふり ON' : 'ふり OFF',
+
+      rtOpacity: s.furigana ? 0.7 : 0,
+      furigana: s.furigana,
+      toggleFurigana: () => this.setState({ furigana:!s.furigana }),
+      toggleVertical: () => this.setState({ vertical:!s.vertical }),
+      furiBorder: s.furigana ? 'var(--color-accent)' : 'var(--color-neutral-400)',
+      furiBg: s.furigana ? 'var(--color-accent-100)' : 'transparent',
+      furiKnob: s.furigana ? 'var(--color-accent)' : 'var(--color-neutral-400)',
+      furiX: s.furigana ? '20px' : '0px',
+      vertBorder: s.vertical ? 'var(--color-accent)' : 'var(--color-neutral-400)',
+      vertBg: s.vertical ? 'var(--color-accent-100)' : 'transparent',
+      vertKnob: s.vertical ? 'var(--color-accent)' : 'var(--color-neutral-400)',
+      vertX: s.vertical ? '20px' : '0px',
+
+      newLimit: s.newLimit, reviewLimit: s.reviewLimit,
+      newWidth: Math.round((s.newLimit / 60) * 100) + '%',
+      reviewWidth: Math.round(((s.reviewLimit - 20) / 480) * 100) + '%',
+      setNewLimit: (e) => this.setState({ newLimit: this.pickFromRail(e, 60, 0, 5) }),
+      setReviewLimit: (e) => this.setState({ reviewLimit: this.pickFromRail(e, 500, 20, 20) }),
+
+      hasSel: !!s.sel,
+      selSurface: s.sel ? s.sel.surface : '',
+      selForm: s.sel ? s.sel.form : '',
+      selClass: s.sel ? s.sel.cls : '',
+      selSteps: s.sel ? s.sel.steps : '',
+      selGloss: s.sel ? s.sel.gloss : '',
+      selSource: s.sel && s.sel.gloss.indexOf('/') > -1 ? 'JMdict' : '本地词库',
+      closeSel: () => this.setState({ sel:null }),
+      toggleStar: () => this.setState({ starred:!s.starred }),
+      starLabel: s.starred ? '已收藏' : '收藏',
+      starColor: s.starred ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      addToDeck: () => this.setState({ added:true }),
+      addLabel: s.added ? '已加入今日卡组' : '加进今日卡组',
+
+      tabLeft: (tabIndex * 33.333) + '%',
+      studyColor: tabIndex === 0 ? on : dim,
+      shelfColor: tabIndex === 1 ? on : dim,
+      settingsColor: tabIndex === 2 ? on : dim,
+      goStudy: () => this.switchTo({ tab:'study', mode:'home', sel:null }),
+      goShelf: () => this.switchTo({ tab:'shelf', mode:'shelf', sel:null }),
+      goSettings: () => this.switchTo({ tab:'settings', mode:'settings', sel:null })
+    };
+  }
+}
+</script>
+</body>
+</html>
