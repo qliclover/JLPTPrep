@@ -165,6 +165,7 @@ cd Core && swift test
 App 内「关于 · 许可」页和[支持页](https://jlpt-nihongo.vercel.app)都有完整署名。
 
 简单说：只用代码的话，MIT 就够了；连数据一起用，还要遵守上表的许可。
+完整的第三方声明见 [NOTICE.md](NOTICE.md)。
 
 ---
 
