@@ -159,7 +159,16 @@ for e in entries:
             # 「お帰り」出现在 N2 词表里不代表这个例句超纲。
             if word in e.get("pattern", "") + e.get("connectionRule", ""):
                 continue
-            if len(word) >= 3 and word in ex.get("ja", "") and word not in ok:
+            # 片假名词要求整词匹配 —— 「メニュー」里含「ニュー」，
+            # 那是子串巧合不是用词超纲。前后不能再接片假名。
+            ja = ex.get("ja", "")
+            if len(word) >= 3 and word in ja and word not in ok:
+                at = ja.index(word)
+                before = ja[at - 1] if at > 0 else ""
+                after = ja[at + len(word)] if at + len(word) < len(ja) else ""
+                katakana = lambda c: "\u30a0" <= c <= "\u30ff"
+                if katakana(word[0]) and (katakana(before) or katakana(after)):
+                    continue
                 problems.append(
                     f"{e['slug']}: 例句用了超纲词「{word}」 → {ex['ja']}"
                 )
