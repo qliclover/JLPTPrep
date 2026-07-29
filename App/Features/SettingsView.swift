@@ -431,6 +431,14 @@ struct SettingsView: View {
             target.audioFilename = name
             try? context.save()
         }
+        // 造几道做错的真题，验证错题本的打通
+        if let qs = try? context.fetch(FetchDescriptor<ExamQuestionEntity>()) {
+            for (i, q) in qs.prefix(30).enumerated() where i % 4 == 0 {
+                q.picked = q.answer == 1 ? 2 : 1        // 故意选错
+                q.answeredAt = Date().addingTimeInterval(-Double(i) * 600)
+            }
+            try? context.save()
+        }
     }
     #endif
 

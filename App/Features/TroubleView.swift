@@ -17,6 +17,9 @@ struct TroubleView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var spots: [ReviewSession.TroubleSpot] = []
+    /// 做错的真题。和背单词的错题分开列 —— 它们是两种不同的错。
+    @State private var examMistakes: [ExamQuestionEntity] = []
+    @State private var openedExam: ExamEntity?
     @State private var drilling = false
 
     /// 统计窗口。三个月前错过、现在已经稳了的词，再摆出来只会制造焦虑。
@@ -25,17 +28,18 @@ struct TroubleView: View {
     var body: some View {
         VStack(spacing: 0) {
             topBar
-            if spots.isEmpty {
+            if spots.isEmpty && examMistakes.isEmpty {
                 emptyState
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
-                        summary
+                        if !spots.isEmpty { summary }
                         ForEach(Array(spots.enumerated()), id: \.offset) { _, spot in
                             Hairline()
                             row(spot)
                         }
                         Hairline()
+                        if !examMistakes.isEmpty { examSection }
                     }
                     .padding(.horizontal, Theme.Space.screen)
                     .padding(.bottom, Theme.Space.s6)
@@ -45,6 +49,7 @@ struct TroubleView: View {
         }
         .background(Theme.Palette.bg.ignoresSafeArea())
         .task { load() }
+        .fullScreenCover(item: $openedExam, onDismiss: load) { ExamRunnerView(exam: $0) }
         .fullScreenCover(isPresented: $drilling, onDismiss: load) {
             StudyView(
                 newCardsPerDay: newCardsPerDay,
@@ -144,6 +149,70 @@ struct TroubleView: View {
         }
     }
 
+    // MARK: - 真题错题
+
+    private var examSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(alignment: .firstTextBaseline) {
+                Kicker(text: "真题错题")
+                Spacer()
+                Text("\(examMistakes.count) 道")
+                    .font(.classicalBody(11))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Palette.neutral600)
+            }
+            .padding(.top, Theme.Space.s8)
+            .padding(.bottom, Theme.Space.s3)
+
+            Text("和上面的单词错题分开列。单词错是「没记住」，\n真题错可能是语法没懂、读解看岔、听力没听清 —— 不是一回事。")
+                .font(.classicalBody(11))
+                .lineSpacing(4)
+                .foregroundStyle(Theme.Palette.neutral600)
+                .padding(.bottom, Theme.Space.s3)
+
+            ForEach(examMistakes) { q in
+                Hairline()
+                examRow(q)
+            }
+            Hairline()
+        }
+    }
+
+    private func examRow(_ q: ExamQuestionEntity) -> some View {
+        Button { openedExam = q.exam } label: {
+            VStack(alignment: .leading, spacing: Theme.Space.s2) {
+                HStack(spacing: Theme.Space.s2) {
+                    ClassicalTag(text: q.subject, style: .outline)
+                    Text("\(q.exam?.session ?? "") · 第 \(q.number) 题")
+                        .font(.classicalBody(11))
+                        .foregroundStyle(Theme.Palette.neutral600)
+                    Spacer()
+                }
+                Text(q.isListening && q.stem.isEmpty ? "（听力题）" : q.stem)
+                    .font(.japanese(15))
+                    .foregroundStyle(Theme.Palette.text)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                // 你选的 vs 正确的 —— 这一行是这条记录的全部价值
+                if let picked = q.picked, picked <= q.options.count {
+                    HStack(alignment: .top, spacing: Theme.Space.s2) {
+                        Text("你选 \(picked)")
+                            .font(.classicalBody(11))
+                            .foregroundStyle(Theme.Palette.neutral500)
+                        Text("正确 \(q.answer)．\(q.options[q.answer - 1])")
+                            .font(.classicalBody(11))
+                            .foregroundStyle(Theme.Palette.accent700)
+                            .lineLimit(1)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, Theme.Space.s3)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+    }
+
     private var drillBar: some View {
         VStack(spacing: 0) {
             Hairline()
@@ -162,7 +231,7 @@ struct TroubleView: View {
             Text("还没有错题")
                 .font(.classicalHeading(26))
                 .foregroundStyle(Theme.Palette.text)
-            Text("复习时按过「忘了」的词会收到这里。\n最近 \(windowDays) 天一次都没按过。")
+            Text("复习时按过「忘了」的词、做真题选错的题，都会收到这里。\n最近 \(windowDays) 天还没有。")
                 .font(.classicalBody(13))
                 .lineSpacing(8)
                 .multilineTextAlignment(.center)
@@ -178,6 +247,11 @@ struct TroubleView: View {
         spots = (try? ReviewSession().troubleSpots(
             in: context, days: windowDays, levels: scope, packIDs: packIDs
         )) ?? []
+        examMistakes = (try? ReviewSession().examMistakes(in: context)) ?? []
+        #if DEBUG
+        // 截图时少显示几道单词错题，好把下面的真题错题一节也框进来
+        if ScreenshotMode.current == .trouble { spots = Array(spots.prefix(2)) }
+        #endif
     }
 
     private func lookup(_ slug: String) -> VocabEntity? {

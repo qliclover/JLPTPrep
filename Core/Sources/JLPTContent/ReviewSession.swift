@@ -320,6 +320,25 @@ public struct ReviewSession {
         return Array(result.prefix(limit))
     }
 
+    // MARK: - 真题错题
+
+    /// 做错的真题，最近做的排前面。
+    ///
+    /// 和背单词的错题**分开取**，因为它们是两种不同的错：
+    /// 单词错是「没记住」，真题错可能是语法没懂、可能是读解看岔、
+    /// 也可能是听力没听清。混在一起排序没有意义 —— 一道错了三次的单词
+    /// 和一道错了一次的读解题，谁更该攻不是同一个维度的问题。
+    public func examMistakes(
+        in context: ModelContext, limit: Int = 100
+    ) throws -> [ExamQuestionEntity] {
+        let all = try context.fetch(FetchDescriptor<ExamQuestionEntity>())
+        return all
+            .filter { $0.picked != nil && $0.picked != $0.answer }
+            .sorted { ($0.answeredAt ?? .distantPast) > ($1.answeredAt ?? .distantPast) }
+            .prefix(limit)
+            .map { $0 }
+    }
+
     // MARK: - 未来几天的负荷预测
 
     public struct DayLoad: Equatable, Sendable {

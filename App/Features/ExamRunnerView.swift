@@ -2,6 +2,7 @@ import SwiftUI
 import SwiftData
 import JLPTCore
 import JLPTContent
+import JLPTJapanese
 
 /// 做真题。一次一道，选完立刻判对错。
 ///
@@ -17,6 +18,14 @@ struct ExamRunnerView: View {
 
     @State private var index = 0
     @State private var revealed = false
+    /// 点开的生词。做真题时遇到不认识的词，能当场查、当场收进复习队列 ——
+    /// 不然一套题做完，那些卡住你的词就散了。
+    @State private var selection: WordSelection?
+
+    struct WordSelection: Identifiable {
+        let word: ReaderWord
+        var id: Int { word.id }
+    }
 
     /// 按科目、大题、题号排好的题序。
     private var questions: [ExamQuestionEntity] {
@@ -50,6 +59,15 @@ struct ExamRunnerView: View {
         }
         .background(Theme.Palette.bg.ignoresSafeArea())
         .onDisappear { SegmentPlayer.shared.stop() }
+        .sheet(item: $selection) { picked in
+            WordDetailSheet(
+                word: picked.word,
+                bookTitle: "\(exam.level) \(exam.session)",
+                bookUUID: UUID(),
+                paragraphIndex: current?.number ?? 0
+            )
+            .presentationDetents([.medium, .large])
+        }
         .onAppear {
             // 接着上次没做的那道继续
             index = questions.firstIndex { $0.picked == nil } ?? 0
@@ -114,11 +132,17 @@ struct ExamRunnerView: View {
                 }
             }
         } else {
-            Text(q.stem)
-                .font(.japanese(20))
-                .lineSpacing(7)
-                .foregroundStyle(Theme.Palette.text)
-                .fixedSize(horizontal: false, vertical: true)
+            // 题干可点。复用阅读器那套分词和词详情 —— 做题时遇到生词
+            // 能当场查读音、活用还原和释义，还能一键收进复习队列。
+            TappableRubyText(
+                words: ReaderText.words(annotated: q.stem),
+                showFurigana: false,
+                baseSize: 20,
+                onTap: { word in
+                    guard word.isLookupable else { return }
+                    selection = WordSelection(word: word)
+                }
+            )
         }
     }
 
