@@ -6,6 +6,10 @@
 
 一个为 JLPT 备考做的 iOS 应用。SwiftUI · SwiftData · iOS 17+ · 全程离线
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-b68235.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/iOS-17%2B-201f1d.svg)
+![Tests](https://img.shields.io/badge/tests-328%20passing-7d5411.svg)
+
 </div>
 
 ---
@@ -153,10 +157,14 @@ cd Core && swift test
 | 日文作品 | [青空文庫](https://www.aozora.gr.jp) | 著作权已过保护期 |
 | Cormorant Garamond / Lora | Google Fonts | SIL OFL 1.1 |
 
-**JMdict 是 CC BY-SA 4.0**，带「相同方式共享」条款。数据未经修改地随包分发，
+**代码采用 [MIT](LICENSE)。** 随包的数据和字体不在此列 —— 它们是第三方作品，
+各按上表的许可分发，MIT 不能也没有重新授权它们。
+
+其中 **JMdict 是 CC BY-SA 4.0**，带「相同方式共享」条款：再分发这份数据
+（无论是否修改）要承担它自己的义务。数据在本项目中未经修改地随包分发，
 App 内「关于 · 许可」页和[支持页](https://jlpt-nihongo.vercel.app)都有完整署名。
 
-代码本身尚未选定开源许可。在选定之前，默认保留所有权利。
+简单说：只用代码的话，MIT 就够了；连数据一起用，还要遵守上表的许可。
 
 ---
 
