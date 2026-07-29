@@ -49,9 +49,15 @@ struct ExamRunnerView: View {
             }
         }
         .background(Theme.Palette.bg.ignoresSafeArea())
+        .onDisappear { SegmentPlayer.shared.stop() }
         .onAppear {
             // 接着上次没做的那道继续
             index = questions.firstIndex { $0.picked == nil } ?? 0
+            #if DEBUG
+            // 验证听力时直接跳到第一道有音频片段的题
+            if ScreenshotMode.current == .examRunner,
+               let i = questions.firstIndex(where: { $0.hasSegment }) { index = i }
+            #endif
             revealed = current?.picked != nil
         }
     }
@@ -89,17 +95,23 @@ struct ExamRunnerView: View {
 
     @ViewBuilder
     private func stem(_ q: ExamQuestionEntity) -> some View {
-        if q.stem.isEmpty {
-            VStack(alignment: .leading, spacing: Theme.Space.s2) {
+        // 按**科目**判断，不看题干是否为空。听力题的题干在音频里，
+        // 但 OCR 常把「1ばん」这类播报残渣留在题干上 —— 用 isEmpty 判断
+        // 会让这些题走成普通题的布局，音频控件根本不出现。
+        if q.isListening {
+            VStack(alignment: .leading, spacing: Theme.Space.s3) {
                 Text("听力题")
                     .font(.classicalHeading(22))
                     .foregroundStyle(Theme.Palette.text)
-                Text(exam.hasAudio
-                     ? "题目在音频里。这套试卷配有听力音频，但按题切分还没做，\n暂时只能对着选项作答。"
-                     : "题目在音频里，而这套试卷没有配套音频。")
-                    .font(.classicalBody(12))
-                    .lineSpacing(4)
-                    .foregroundStyle(Theme.Palette.neutral600)
+
+                if q.hasSegment, ExamAudioStore.exists(exam.audioFilename) {
+                    audioControl(q)
+                } else {
+                    Text(audioHint(q))
+                        .font(.classicalBody(12))
+                        .lineSpacing(4)
+                        .foregroundStyle(Theme.Palette.neutral600)
+                }
             }
         } else {
             Text(q.stem)
@@ -139,6 +151,57 @@ struct ExamRunnerView: View {
                 .disabled(revealed)
             }
         }
+    }
+
+    /// 播放这道题对应的录音片段。
+    ///
+    /// 播的是整份录音的一个区间，不是切好的小文件 —— 时间点由
+    /// `Tools/SplitAudio` 算出（静音找候选边界、语音识别确认「Nばん」）。
+    private func audioControl(_ q: ExamQuestionEntity) -> some View {
+        let id = "\(exam.id)-\(q.section)-\(q.number)"
+        let playing = SegmentPlayer.shared.isPlaying(id)
+        return VStack(alignment: .leading, spacing: Theme.Space.s2) {
+            Button {
+                if playing {
+                    SegmentPlayer.shared.stop()
+                } else if let name = exam.audioFilename,
+                          let start = q.audioStart, let end = q.audioEnd {
+                    SegmentPlayer.shared.play(
+                        url: ExamAudioStore.url(for: name), from: start, to: end, id: id
+                    )
+                }
+            } label: {
+                Text(playing ? "停止" : "播放这道题")
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(ClassicalButtonStyle(kind: playing ? .emphasis : .primary))
+
+            // 进度条：1px 轨 + 金色已播段，和设置里的滑杆同一套
+            GeometryReader { geo in
+                ZStack(alignment: .leading) {
+                    Rectangle().fill(Theme.divider).frame(height: Theme.hairline)
+                    Rectangle().fill(Theme.Palette.accent)
+                        .frame(width: geo.size.width * (playing ? SegmentPlayer.shared.progress : 0),
+                               height: 2)
+                }
+            }
+            .frame(height: 2)
+
+            if let start = q.audioStart, let end = q.audioEnd {
+                Text("片段 \(Int(end - start)) 秒 · 录音第 \(Int(start / 60)) 分处")
+                    .font(.classicalBody(11))
+                    .monospacedDigit()
+                    .foregroundStyle(Theme.Palette.neutral500)
+            }
+        }
+    }
+
+    private func audioHint(_ q: ExamQuestionEntity) -> String {
+        if !exam.hasAudio { return "题目在音频里，而这套试卷没有配套音频。" }
+        if !ExamAudioStore.exists(exam.audioFilename) {
+            return "题目在音频里。回到试卷列表长按这一套，选「导入听力音频」。"
+        }
+        return "题目在音频里，但这一道没有定位到对应的录音片段。"
     }
 
     /// 判对错后才上色。这套设计里没有语义红绿 ——
@@ -224,6 +287,8 @@ struct ExamRunnerView: View {
     }
 
     private func step(_ delta: Int) {
+        // 换题时停掉上一题的录音 —— 看着新题听着旧题是最糟的组合
+        SegmentPlayer.shared.stop()
         let next = index + delta
         guard next >= 0 else { return }
         index = next

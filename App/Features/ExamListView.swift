@@ -17,6 +17,8 @@ struct ExamListView: View {
     @State private var showingImporter = false
     @State private var message: String?
     @State private var opened: ExamEntity?
+    /// 正在给哪一套导入听力音频。
+    @State private var awaitingAudio: ExamEntity?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -47,11 +49,25 @@ struct ExamListView: View {
         ) { result in
             handleImport(result)
         }
+        .fileImporter(
+            isPresented: Binding(
+                get: { awaitingAudio != nil },
+                set: { if !$0 { awaitingAudio = nil } }
+            ),
+            allowedContentTypes: [.audio, .mp3, .mpeg4Audio],
+            allowsMultipleSelection: false
+        ) { result in
+            handleAudioImport(result)
+        }
         .fullScreenCover(item: $opened) { ExamRunnerView(exam: $0) }
         #if DEBUG
         .task {
             // 验证用：直接进第一套试卷
-            if ScreenshotMode.current == .examRunner { opened = exams.first }
+            if ScreenshotMode.current == .examRunner {
+                // 验证听力：挑有音频且有片段的那一套
+                opened = exams.first { $0.audioFilename != nil
+                                       && $0.questions.contains { $0.hasSegment } } ?? exams.first
+            }
         }
         #endif
     }
@@ -118,7 +134,13 @@ struct ExamListView: View {
         }
         .buttonStyle(.plain)
         .contextMenu {
+            if exam.hasAudio {
+                Button(ExamAudioStore.exists(exam.audioFilename) ? "换一份听力音频" : "导入听力音频") {
+                    awaitingAudio = exam
+                }
+            }
             Button("删除这套", role: .destructive) {
+                ExamAudioStore.remove(exam.audioFilename)
                 context.delete(exam)
                 try? context.save()
             }
@@ -130,7 +152,12 @@ struct ExamListView: View {
         if exam.answeredCount > 0 {
             parts.append("做了 \(exam.answeredCount) · 对 \(exam.correctCount)")
         }
-        if exam.hasAudio { parts.append("有听力音频") }
+        if exam.hasAudio {
+            let ready = exam.questions.count { $0.hasSegment }
+            parts.append(ExamAudioStore.exists(exam.audioFilename)
+                         ? "音频已导入 · \(ready) 道可播"
+                         : "长按导入听力音频")
+        }
         return parts.joined(separator: " · ")
     }
 
@@ -168,6 +195,27 @@ struct ExamListView: View {
             Spacer()
         }
         .padding(.horizontal, Theme.Space.s8)
+    }
+
+    /// 把听力音频拷进沙箱。
+    ///
+    /// 必须拷贝而不是记住原路径 —— 文件选择器给的是临时授权，
+    /// App 重启后就访问不到了。一份 N4 听力约 35 MB。
+    private func handleAudioImport(_ result: Result<[URL], any Error>) {
+        guard let exam = awaitingAudio else { return }
+        awaitingAudio = nil
+        do {
+            guard let url = try result.get().first else { return }
+            let scoped = url.startAccessingSecurityScopedResource()
+            defer { if scoped { url.stopAccessingSecurityScopedResource() } }
+            let filename = try ExamAudioStore.store(from: url, examID: exam.id)
+            exam.audioFilename = filename
+            try context.save()
+            let withSegment = exam.questions.count { $0.hasSegment }
+            message = "音频已导入。\(withSegment) 道听力题可以按题播放。"
+        } catch {
+            message = "音频导入失败：\(error.localizedDescription)"
+        }
     }
 
     private func handleImport(_ result: Result<[URL], any Error>) {

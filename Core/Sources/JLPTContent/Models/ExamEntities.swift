@@ -13,8 +13,13 @@ public final class ExamEntity {
     public var level: String
     public var session: String
     public var importedAt: Date
-    /// 这套题配有听力音频吗。有的话题目里的听力部分才有意义。
+    /// 题库文件里标注了这套题有配套音频。
     public var hasAudio: Bool
+    /// 用户导入的音频在沙箱里的文件名。nil = 还没导入。
+    ///
+    /// 存文件名而不是完整路径 —— App 的沙箱路径每次安装都会变，
+    /// 存绝对路径的话重装一次全部失效。
+    public var audioFilename: String?
 
     @Relationship(deleteRule: .cascade, inverse: \ExamQuestionEntity.exam)
     public var questions: [ExamQuestionEntity] = []
@@ -57,6 +62,14 @@ public final class ExamQuestionEntity {
     public var picked: Int?
     public var answeredAt: Date?
 
+    // MARK: 音频定位
+    /// 这道题在录音里的起止秒数。由 `Tools/SplitAudio` 算出，
+    /// **不切文件** —— App 播放原录音的这一段就行。
+    public var audioStart: Double?
+    public var audioEnd: Double?
+
+    public var hasSegment: Bool { audioStart != nil && audioEnd != nil }
+
     public init(
         subject: String, section: Int, number: Int,
         stem: String, options: [String], answer: Int
@@ -87,6 +100,8 @@ public enum ExamImporter {
             var stem: String
             var options: [String]
             var answer: Int?
+            var audioStart: Double?
+            var audioEnd: Double?
         }
         var level: String
         var session: String
@@ -138,10 +153,19 @@ public enum ExamImporter {
                 report.skipped += 1
                 continue
             }
+            // 听力题的题干在音频里。OCR 常把「1ばん」这类题号播报的残渣
+            // 留在题干字段上，那不是题目内容，显示出来只会误导。
+            let stem = q.subject.contains("聴解")
+                ? q.stem.replacingOccurrences(
+                    of: #"^\s*[0-9０-９]*\s*(ばん|番)\s*"#, with: "", options: .regularExpression
+                  )
+                : q.stem
             let entity = ExamQuestionEntity(
                 subject: q.subject, section: q.section, number: q.number,
-                stem: q.stem, options: q.options, answer: answer
+                stem: stem, options: q.options, answer: answer
             )
+            entity.audioStart = q.audioStart
+            entity.audioEnd = q.audioEnd
             entity.exam = exam
             context.insert(entity)
             report.imported += 1

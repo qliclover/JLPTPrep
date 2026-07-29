@@ -413,9 +413,23 @@ struct SettingsView: View {
         guard let files = try? FileManager.default.contentsOfDirectory(
             at: source, includingPropertiesForKeys: nil
         ) else { return }
-        for url in files where url.pathExtension == "json" {
+        for url in files where url.pathExtension == "json"
+            && !url.lastPathComponent.hasPrefix("segments-") {
             guard let data = try? Data(contentsOf: url) else { continue }
             _ = try? ExamImporter.import(data: data, into: context)
+        }
+        // 顺带把真实听力音频拷进沙箱，验证按题播放。
+        // 音频文件名各年不一（「听力.mp3」「音频.mp3」），按目录搜而不是硬编码。
+        let audioDir = URL(fileURLWithPath:
+            "/Users/qianli/JLPTPrep/data/日语JLPT真题/日语JLPT历年真题/N4历年真题合集/2014年07月N4")
+        if let found = (try? FileManager.default.contentsOfDirectory(
+                at: audioDir, includingPropertiesForKeys: nil
+           ))?.first(where: { $0.pathExtension.lowercased() == "mp3" }),
+           let exams = try? context.fetch(FetchDescriptor<ExamEntity>()),
+           let target = exams.first(where: { $0.session.contains("2014") }),
+           let name = try? ExamAudioStore.store(from: found, examID: target.id) {
+            target.audioFilename = name
+            try? context.save()
         }
     }
     #endif
