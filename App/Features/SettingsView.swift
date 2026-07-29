@@ -23,10 +23,12 @@ struct SettingsView: View {
     @State private var enabledSummary = ""
     @State private var troubleSummary = ""
     @State private var examSummary = ""
+    @State private var grammarSummary = ""
     @State private var notificationDenied = false
     @State private var showingTrouble = false
     @State private var showingBackup = false
     @State private var showingExams = false
+    @State private var showingGrammar = false
 
     var body: some View {
         ScrollView {
@@ -51,6 +53,9 @@ struct SettingsView: View {
         .sheet(isPresented: $showingAbout) { AboutView() }
         .fullScreenCover(isPresented: $showingBackup, onDismiss: refresh) { BackupView() }
         .fullScreenCover(isPresented: $showingExams, onDismiss: refresh) { ExamListView() }
+        .fullScreenCover(isPresented: $showingGrammar, onDismiss: refresh) {
+            GrammarListView(scope: (JLPTLevel(rawValue: targetLevelRaw) ?? .n4).cumulativeScope)
+        }
         .fullScreenCover(isPresented: $showingTrouble, onDismiss: refresh) {
             TroubleView(
                 scope: (JLPTLevel(rawValue: targetLevelRaw) ?? .n4).cumulativeScope,
@@ -66,6 +71,7 @@ struct SettingsView: View {
             if ScreenshotMode.current == .packs { showingPacks = true }
             if ScreenshotMode.current == .trouble { showingTrouble = true }
             if ScreenshotMode.current == .backup { showingBackup = true }
+            if ScreenshotMode.current == .grammar { showingGrammar = true }
             if ScreenshotMode.current == .exams || ScreenshotMode.current == .examRunner {
                 // 截图/验证模式：直接把真实题库导进来
                 importBundledExamsForScreenshot()
@@ -271,6 +277,28 @@ struct SettingsView: View {
             .buttonStyle(.plain)
             Hairline()
 
+            Button { showingGrammar = true } label: {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("语法")
+                            .font(.classicalBody(14))
+                            .foregroundStyle(Theme.Palette.text)
+                        Text(grammarSummary)
+                            .font(.classicalBody(11))
+                            .monospacedDigit()
+                            .foregroundStyle(Theme.Palette.neutral600)
+                    }
+                    Spacer()
+                    Text("›")
+                        .font(.classicalHeading(18))
+                        .foregroundStyle(Theme.Palette.accent)
+                }
+                .padding(.vertical, Theme.Space.s3)
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            Hairline()
+
             Button { showingExams = true } label: {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 3) {
@@ -455,6 +483,13 @@ struct SettingsView: View {
         troubleSummary = spots.isEmpty
             ? "最近 60 天没有按过「忘了」"
             : "最近 60 天 \(spots.count) 个词反复错 · 最多错了 \(spots[0].againCount) 次"
+
+        let goalLevel = JLPTLevel(rawValue: targetLevelRaw) ?? .n4
+        let grammar = ((try? context.fetch(FetchDescriptor<GrammarEntity>())) ?? [])
+            .filter { !$0.isRetired && goalLevel.cumulativeScope.contains($0.level) }
+        grammarSummary = grammar.isEmpty
+            ? "还没有语法条目"
+            : "\(grammar.count) 条 · 已并入每日复习队列"
 
         let exams = (try? context.fetch(FetchDescriptor<ExamEntity>())) ?? []
         let totalQuestions = exams.reduce(0) { $0 + $1.questions.count }

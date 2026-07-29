@@ -35,6 +35,8 @@ enum ScreenshotMode: String {
     case exams
     /// 做真题
     case examRunner
+    /// 语法列表
+    case grammar
 
     /// 本次启动指定的屏，没指定就是 nil（正常启动）。
     static let current: ScreenshotMode? = {
@@ -50,7 +52,7 @@ enum ScreenshotMode: String {
         switch self {
         case .home, .study: .study
         case .shelf, .reader, .readerVertical, .notes, .wordDetail: .shelf
-        case .packs, .trouble, .backup, .exams, .examRunner: .settings
+        case .packs, .trouble, .backup, .exams, .examRunner, .grammar: .settings
         }
     }
 

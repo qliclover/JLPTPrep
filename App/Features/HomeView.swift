@@ -300,6 +300,13 @@ struct HomeView: View {
         } catch {
             bootstrapError = "内容导入失败：\(error.localizedDescription)"
         }
+        // 语法包随包分发（内容是自己写的，不涉及第三方版权），
+        // 每次启动 upsert 一遍 —— 内容更新了进度不受影响。
+        for name in ["grammar_n5", "grammar_n4"] {
+            guard let url = Bundle.main.url(forResource: name, withExtension: "json"),
+                  let data = try? Data(contentsOf: url) else { continue }
+            _ = try? GrammarImporter().import(data: data, into: context)
+        }
         #if DEBUG
         // 截图模式下铺一层演示数据。Release 构建里这段不存在。
         ScreenshotSeed.apply(in: context)
