@@ -22,9 +22,11 @@ struct SettingsView: View {
     @State private var showingAbout = false
     @State private var enabledSummary = ""
     @State private var troubleSummary = ""
+    @State private var examSummary = ""
     @State private var notificationDenied = false
     @State private var showingTrouble = false
     @State private var showingBackup = false
+    @State private var showingExams = false
 
     var body: some View {
         ScrollView {
@@ -48,6 +50,7 @@ struct SettingsView: View {
         .sheet(isPresented: $showingPacks, onDismiss: refresh) { PackLibraryView() }
         .sheet(isPresented: $showingAbout) { AboutView() }
         .fullScreenCover(isPresented: $showingBackup, onDismiss: refresh) { BackupView() }
+        .fullScreenCover(isPresented: $showingExams, onDismiss: refresh) { ExamListView() }
         .fullScreenCover(isPresented: $showingTrouble, onDismiss: refresh) {
             TroubleView(
                 scope: (JLPTLevel(rawValue: targetLevelRaw) ?? .n4).cumulativeScope,
@@ -63,6 +66,11 @@ struct SettingsView: View {
             if ScreenshotMode.current == .packs { showingPacks = true }
             if ScreenshotMode.current == .trouble { showingTrouble = true }
             if ScreenshotMode.current == .backup { showingBackup = true }
+            if ScreenshotMode.current == .exams || ScreenshotMode.current == .examRunner {
+                // 截图/验证模式：直接把真实题库导进来
+                importBundledExamsForScreenshot()
+                showingExams = true
+            }
             #endif
         }
         .onChange(of: targetLevelRaw) { refresh() }
@@ -263,6 +271,28 @@ struct SettingsView: View {
             .buttonStyle(.plain)
             Hairline()
 
+            Button { showingExams = true } label: {
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("真题")
+                            .font(.classicalBody(14))
+                            .foregroundStyle(Theme.Palette.text)
+                        Text(examSummary)
+                            .font(.classicalBody(11))
+                            .monospacedDigit()
+                            .foregroundStyle(Theme.Palette.neutral600)
+                    }
+                    Spacer()
+                    Text("›")
+                        .font(.classicalHeading(18))
+                        .foregroundStyle(Theme.Palette.accent)
+                }
+                .padding(.vertical, Theme.Space.s3)
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            Hairline()
+
             Button { showingBackup = true } label: {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 3) {
@@ -372,6 +402,24 @@ struct SettingsView: View {
         )
     }
 
+    #if DEBUG
+    /// 截图与验证用：把 `Docs/exams/` 下的题库文件读进来。
+    /// 真机上这些文件不存在，只有开发机跑得到。
+    private func importBundledExamsForScreenshot() {
+        let dir = URL(fileURLWithPath: NSHomeDirectory())
+            .deletingLastPathComponent().deletingLastPathComponent()
+        _ = dir
+        let source = URL(fileURLWithPath: "/Users/qianli/JLPTPrep/Docs/exams")
+        guard let files = try? FileManager.default.contentsOfDirectory(
+            at: source, includingPropertiesForKeys: nil
+        ) else { return }
+        for url in files where url.pathExtension == "json" {
+            guard let data = try? Data(contentsOf: url) else { continue }
+            _ = try? ExamImporter.import(data: data, into: context)
+        }
+    }
+    #endif
+
     private func refresh() {
         let packs = (try? PackLibrary().packs(in: context).filter(\.enabled)) ?? []
         let names = packs
@@ -385,6 +433,13 @@ struct SettingsView: View {
         troubleSummary = spots.isEmpty
             ? "最近 60 天没有按过「忘了」"
             : "最近 60 天 \(spots.count) 个词反复错 · 最多错了 \(spots[0].againCount) 次"
+
+        let exams = (try? context.fetch(FetchDescriptor<ExamEntity>())) ?? []
+        let totalQuestions = exams.reduce(0) { $0 + $1.questions.count }
+        let answered = exams.reduce(0) { $0 + $1.answeredCount }
+        examSummary = exams.isEmpty
+            ? "还没导入试卷"
+            : "\(exams.count) 套 · \(totalQuestions) 题 · 做过 \(answered)"
 
         enabledSummary = names.isEmpty
             ? "目标 \(targetLevelRaw) · 还没启用任何包"

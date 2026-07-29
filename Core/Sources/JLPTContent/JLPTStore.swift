@@ -13,6 +13,8 @@ public enum JLPTStore {
         BookEntity.self,
         NoteEntity.self,
         VocabPackEntity.self,
+        ExamEntity.self,
+        ExamQuestionEntity.self,
     ]
 
     public static var schema: Schema { Schema(models) }
