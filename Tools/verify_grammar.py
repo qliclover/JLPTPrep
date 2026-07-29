@@ -98,7 +98,7 @@ def core(pattern: str) -> list[str]:
 # 动词变形类条目（可能形・受身形・使役形・意志形）没法用子串查 ——
 # 「話せます」里不含「可能形」三个字。这类条目的正确性只能靠人工看，
 # 所以显式豁免并**在报告里说清楚豁免了几条**，而不是悄悄跳过。
-CONJUGATION_FORMS = ("可能形", "受身形", "使役形", "意志形", "ば形")
+CONJUGATION_FORMS = ("可能形", "受身形", "使役形", "意志形", "ば形", "の活用")
 
 def is_conjugation_entry(e: dict) -> bool:
     return any(f in e.get("pattern", "") for f in CONJUGATION_FORMS)
